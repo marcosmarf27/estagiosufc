@@ -72,7 +72,7 @@ class PendenciaFormList extends TWindow
         $descricao = new TText('descricao');
         $descricao->setSize('100%', 100);
         $descricao->placeholder = 'Resuma aqui os problemas encontrados';
-        $parecer = new THtmlEditorSimples('parecer');
+        $parecer = new THtmlEditor('parecer');
         $parecer->setSize('100%', 350);
        
        
