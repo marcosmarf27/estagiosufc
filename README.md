@@ -3,8 +3,11 @@
 <!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
 
 
-
+##ÁREA ADMINISTRATIVA
 <img src="estagio.png" alt="exemplo imagem">
+
+##ÁREA ALUNO
+<img src="aluno.png" alt="exemplo imagem">
 
 > o SISTEMA DE ESTÁGIOS gerencia e registra todos os processos de estágios do Campus Russas - UFC.
 
