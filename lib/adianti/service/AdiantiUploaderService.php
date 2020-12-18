@@ -30,7 +30,7 @@ class AdiantiUploaderService
             
             if( $file['error'] === 0 && $file['size'] > 0 )
             {
-                $path = $folder.$file['name']. md5(uniqid()) . '-' . time() .'.pdf';
+                $path = $folder. md5(uniqid()) . '-' . time() .'.pdf';
                 
                 // check blocked file extension, not using finfo because file.php.2 problem
                 foreach ($block_extensions as $block_extension)

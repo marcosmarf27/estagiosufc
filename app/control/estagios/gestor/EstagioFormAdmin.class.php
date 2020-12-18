@@ -1,5 +1,6 @@
 <?php
 
+use Adianti\Control\TAction;
 use Adianti\Control\TWindow;
 use Adianti\Database\TTransaction;
 use Adianti\Registry\TSession;
@@ -82,13 +83,13 @@ class EstagioFormAdmin extends TWindow
         $data_ini->setMask('dd/mm/yyyy');
         $data_fim->setMask('dd/mm/yyyy');
         $data_ini->setDatabaseMask('yyyy-mm-dd');
-        $data_ini->setDatabaseMask('yyyy-mm-dd');
+        $data_fim->setDatabaseMask('yyyy-mm-dd');
         $valor_bolsa->setNumericMask(2, ',', '.', true);
 
         $data_ini_a->setMask('dd/mm/yyyy');
         $data_fim_a->setMask('dd/mm/yyyy');
         $data_ini_a->setDatabaseMask('yyyy-mm-dd');
-        $data_ini_a->setDatabaseMask('yyyy-mm-dd');
+        $data_fim_a->setDatabaseMask('yyyy-mm-dd');
         $valor_transporte->setNumericMask(2, ',', '.', true);
         $valor_transporte->style = "text-align: left";
         
@@ -209,7 +210,7 @@ class EstagioFormAdmin extends TWindow
                                   '7' => 'Histórico Acadêmico' ]);
        // $obs = new TEntry('obs[]');
         $url = new TFile('url[]');
-        $url->setDisplayMode('file');
+       // $url->setDisplayMode('file');
        // $url->enableFileHandling();
         $data_envio = new TDate('data_envio[]');
         $data_envio->setMask('dd/mm/yyyy');
@@ -373,7 +374,23 @@ class EstagioFormAdmin extends TWindow
                         
                         if ($arquivo)
                         {
-                            $source_file   = 'tmp/'.$arquivo;
+
+                            $pos = strpos($arquivo, '/');
+
+                            if($pos === false){
+                                $source_file   = 'tmp/'.$arquivo;
+                            }else{
+                                $source_file   = $arquivo;
+
+                            }
+                            
+                           
+
+                              
+                            
+                           
+
+                            echo $source_file;
 
                           
                            // $target_file   = 'files/estagios/' . TSession::getValue('login') . '-' . md5(uniqid()) . '-' . time() . '.pdf';
@@ -382,7 +399,7 @@ class EstagioFormAdmin extends TWindow
                             if (file_exists($source_file) AND $finfo->file($source_file) == 'application/pdf')
                             {
                                 // move to the target directory
-                                $target_file   = 'files/estagios/' . TSession::getValue('login') . '-' . md5(uniqid()) . '-' . time() . '.pdf';
+                                $target_file   = 'files/estagios/' . md5(uniqid()) . '-' . time() . '.pdf';
                              
                                 copy($source_file, $target_file);
                                 
@@ -424,9 +441,10 @@ class EstagioFormAdmin extends TWindow
            
             
            SystemNotification::register(1, 'Novo termo recebido', 'Avaliar Termo de Estágio', 'class=EstagioForm&method=onEdit&id='. $estagio->id, 'Avaliar', 'fa fa-list blue alt');
+            $posaction = new TAction(array('EstagioList', 'link'));
             
             // shows the success message
-            new TMessage('info', 'Registro Salvo com Sucesso!');
+            new TMessage('info', 'Registro Salvo com Sucesso!', $posaction);
             
             TTransaction::close(); // close the transaction */
         }
@@ -455,26 +473,14 @@ class EstagioFormAdmin extends TWindow
 
                 $horarios = $estagio->getHorarios();
                 $documentos = $estagio->getDocumentos();
-/* 
-             echo "<pre> ";  
-             print_r($param);
 
-             echo '</pre>';
-
-             echo "<pre> ";  
-             print_r($horarios);
-             print_r($documentos);
-             
-             echo "</pre>";
-                // load the horarios (composition)
-                 */
                 
                 if ($horarios)
                 {
 
                    
                  
-                    //TFieldList::clear('horarios_list');
+                  
                     $this->horarios->addHeader();
                    
                     foreach ($horarios as $horario)

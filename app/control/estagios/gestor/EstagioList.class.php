@@ -151,7 +151,7 @@ class EstagioList extends TPage
         });
 
        // $action_view   = new TDataGridAction(['SaleSidePanelView', 'onView'],   ['key' => '{id}', 'register_state' => 'false'] );
-        $action_edit   = new TDataGridAction(['EstagioFormAdmin', 'onEdit'],   ['key' => '{id}',  'register_state' => 'false']);
+        $action_edit   = new TDataGridAction(['EstagioFormAdmin', 'onEdit'],   ['key' => '{id}',  'register_state' => 'false', 'nome'=> 'marcos antonio rafael da fonseca ç']);
         $action_edit_a   = new TDataGridAction(['AlunoFormWindow', 'onEdit'],   ['id' => '{aluno_id}',  'register_state' => 'false']);
         $action_edit_c   = new TDataGridAction(['ConcedenteFormWindow', 'onEdit'],   ['id' => '{concedente_id}',  'register_state' => 'false']);
         $action_delete = new TDataGridAction([$this, 'onDelete'],   ['key' => '{id}'] );
@@ -370,6 +370,9 @@ class EstagioList extends TPage
     new TMessage('info', 'Termo
     de estágio aprovado', $action1);
 
+
+   }
+   public function link(){
 
    }
     
