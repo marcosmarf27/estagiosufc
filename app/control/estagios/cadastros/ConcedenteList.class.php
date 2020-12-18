@@ -28,7 +28,8 @@ class ConcedenteList extends TPage
         
         $this->setDatabase('estagio');        // defines the database
         $this->setActiveRecord('Concedente');       // defines the active record
-        $this->addFilterField('nome', 'ilike', 'nome'); // filter field, operator, form field
+        $this->addFilterField('nome', 'ilike', 'nome');
+        $this->addFilterField('situacao', 'ilike', 'situacao'); // filter field, operator, form field
         $this->setDefaultOrder('id', 'desc');  // define the default order
         
         // creates the form
@@ -36,7 +37,10 @@ class ConcedenteList extends TPage
         $this->form->setFormTitle('Lista de Empresas');
         
         $nome = new TEntry('nome');
-        $this->form->addFields( [new TLabel('Name:')], [$nome] );
+        $situacao = new TCombo('situacao');
+        $situacao->addItems(['1' => 'Não conveniada', '2' => 'Conveniada', '3' => 'Processando', '4' => 'Com problemas']);
+        $this->form->addFields( [new TLabel('Name:')], [$nome], [new TLabel('Situação:')], [$situacao] );
+        
         
         // add form actions
         $this->form->addAction('Buscar', new TAction([$this, 'onSearch']), 'fa:search blue');
