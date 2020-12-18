@@ -15,7 +15,10 @@
         <action>AlunoForm#method=Editar</action>
         <icon>fas:address-book fa-fw</icon>
       </menuitem>
-      <menuitem label="Convênios">
+    
+    </menu>
+  </menuitem>
+    <menuitem label="Convênios">
         <action></action>
         <icon>fas:chalkboard-teacher fa-fw</icon>
         <menu>
@@ -29,10 +32,8 @@
           </menuitem>
         </menu>
       </menuitem>
-    </menu>
-  </menuitem>
   <menuitem label="Gestor de Estágios">
-    <action>EstagioList</action>
+    <action></action>
     <icon>fas:align-left fa-fw</icon>
     <menu>
       <menuitem label="Termos Recebidos">

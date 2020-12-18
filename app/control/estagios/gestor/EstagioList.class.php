@@ -68,7 +68,7 @@ class EstagioList extends TPage
         $id        = new TEntry('id');
         $situacao = new TCombo('situacao');
         $matricula = new TEntry('matricula');
-        $situacao->addItems([ '1' => 'Em Avaliação', '2' => 'Estágio Aprovado', '3'=> 'Estágio com Problemas']);
+        $situacao->addItems([ '1' => 'Em Avaliação', '2' => 'Estágio Aprovado','3' => 'Rescindidos', '4'=> 'Estágio com Problemas']);
         $date_from = new TDate('date_from');
         $date_to   = new TDate('date_to');
         

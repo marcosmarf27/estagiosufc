@@ -68,19 +68,19 @@ class ConvenioList extends TPage
         
         // creates the datagrid columns
        // $col_id    = new TDataGridColumn('id', 'Id', 'right', '5%');
-        $col_name  = new TDataGridColumn('nome', 'Name', 'left', '30%');
-        $col_situacao  = new TDataGridColumn('situacao', 'Status', 'left', '25%');
-        $col_representante= new TDataGridColumn('representante', 'Representante', 'left', '15%');
+        $col_name  = new TDataGridColumn('nome', 'Nome', 'left', '30%');
+        $col_situacao  = new TDataGridColumn('situacao', 'Situação', 'left', '25%');
+        $cnpj= new TDataGridColumn('cnpj', 'cnpj', 'left', '15%');
         $col_email  = new TDataGridColumn('email', 'E-mail', 'left', '15%');
-        $cidade = new TDataGridColumn('cidade->nome', 'Cidade', 'center', '15%');
+        $convenio = new TDataGridColumn('n_convenio', 'nº processo', 'center', '15%');
        
         
        // $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
         $this->datagrid->addColumn($col_situacao);
-        $this->datagrid->addColumn($col_representante);
+        $this->datagrid->addColumn($cnpj);
         $this->datagrid->addColumn($col_email);
-      $this->datagrid->addColumn($cidade);
+      $this->datagrid->addColumn($convenio);
 
       $col_situacao->setTransformer(array($this, 'Ajustar'));
      
