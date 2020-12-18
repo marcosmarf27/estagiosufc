@@ -8,6 +8,7 @@ class Documento extends TRecord
     const TABLENAME = 'ufc_documento';
     const PRIMARYKEY= 'id';
     const IDPOLICY =  'max'; // {max, serial}
+    const CACHECONTROL = 'TAPCache';
     use SystemChangeLogTrait;
 
     private $cidade;

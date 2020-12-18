@@ -8,6 +8,7 @@ class Aluno extends TRecord
     const TABLENAME = 'ufc_aluno';
     const PRIMARYKEY= 'id';
     const IDPOLICY =  'max'; // {max, serial}
+    const CACHECONTROL = 'TAPCache';
     use SystemChangeLogTrait;
 
     private $cidade;

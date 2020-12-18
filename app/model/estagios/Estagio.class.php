@@ -8,6 +8,7 @@ class Estagio extends TRecord
     const TABLENAME = 'ufc_estagio';
     const PRIMARYKEY= 'id';
     const IDPOLICY =  'max'; // {max, serial}
+    const CACHECONTROL = 'TAPCache';
     use SystemChangeLogTrait;
     private $aluno;
     private $concedente;
