@@ -31,12 +31,16 @@
       </menuitem>
     </menu>
   </menuitem>
-  <menuitem label="Gestor de Termos de Estágios">
+  <menuitem label="Gestor de Estágios">
     <action>EstagioList</action>
     <icon>fas:align-left fa-fw</icon>
     <menu>
       <menuitem label="Termos Recebidos">
         <action>SystemNotificationList</action>
+        <icon>fas:exchange-alt fa-fw</icon>
+      </menuitem>
+      <menuitem label="Lista de estágios">
+        <action>EstagioList</action>
         <icon>fas:exchange-alt fa-fw</icon>
       </menuitem>
     </menu>
