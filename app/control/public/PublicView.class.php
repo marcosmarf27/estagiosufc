@@ -5,7 +5,7 @@ class PublicView extends TPage
     {
         parent::__construct();
         
-        /* $iframe = new TElement('iframe');
+        $iframe = new TElement('iframe');
         $iframe->id = "iframe_external";
         $iframe->src = "http://dmontier.pro.br/balcao/";
         $iframe->frameborder = "0";
@@ -13,6 +13,6 @@ class PublicView extends TPage
         $iframe->width = "100%";
         $iframe->height = "900px";
         
-        parent::add($iframe); */
+        parent::add($iframe); 
     }
 }
