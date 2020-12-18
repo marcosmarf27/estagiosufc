@@ -69,7 +69,7 @@ class EstagioListAluno extends TPage
         
         // creates the datagrid columns
       //  $column_id       = new TDataGridColumn('id', 'nº Estágio', 'center', '5%');
-        $column_situacao    = new TDataGridColumn('situacao', 'Status', 'center', '20%');
+        $column_situacao    = new TDataGridColumn('situacao', 'Status', 'center', '30%');
       //  $column_aluno = new TDataGridColumn('aluno->nome', 'Aluno', 'left', '20%');
         $column_tipo = new TDataGridColumn('tipo_estagio->nome', 'TCE tipo', 'left', '20%');
         $column_concedente = new TDataGridColumn('concedente->nome', 'Concedente', 'left', '20%');
