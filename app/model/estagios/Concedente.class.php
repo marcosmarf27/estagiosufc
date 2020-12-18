@@ -8,6 +8,9 @@ class Concedente extends TRecord
     const TABLENAME = 'ufc_concedente';
     const PRIMARYKEY= 'id';
     const IDPOLICY =  'max'; // {max, serial}
+    const CACHECONTROL = 'TAPCache';
+    const CREATEDAT = 'criacao';
+    const UPDATEDAT = 'atualizacao';
     use SystemChangeLogTrait;
 
     private $cidade;
@@ -26,6 +29,8 @@ class Concedente extends TRecord
 
         parent::addAttribute('situacao');
         parent::addAttribute('n_convenio');
+        parent::addAttribute('criacao');
+        parent::addAttribute('atualizacao');
         parent::addAttribute('validade_ini');
         parent::addAttribute('validade_fim');
         parent::addAttribute('tipo');

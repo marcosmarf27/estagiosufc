@@ -9,6 +9,8 @@ class Estagio extends TRecord
     const PRIMARYKEY= 'id';
     const IDPOLICY =  'max'; // {max, serial}
     const CACHECONTROL = 'TAPCache';
+    const CREATEDAT = 'criacao';
+    const UPDATEDAT = 'atualizacao';
     use SystemChangeLogTrait;
     private $aluno;
     private $concedente;
@@ -41,6 +43,8 @@ class Estagio extends TRecord
         parent::addAttribute('data_rescisao');
         parent::addAttribute('motivo_res');
         parent::addAttribute('editado');
+        parent::addAttribute('criacao');
+        parent::addAttribute('atualizacao');
       
 
         

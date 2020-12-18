@@ -41,7 +41,7 @@ class ListEstagioEmpresa extends TWindow
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_estagios_empresa');
-        $this->form->setFormTitle('Estágios');
+        $this->form->setFormTitle('Estágios na Empresa');
         
         $aluno_id = new TDBUniqueSearch('aluno_id', 'estagio', 'Aluno', 'id', 'nome');
         $aluno_id->setMinLength(1);
@@ -94,7 +94,7 @@ class ListEstagioEmpresa extends TWindow
         // creates the page structure using a table
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
-        $vbox->add(new TXMLBreadCrumb('menu.xml', 'EstagioList'));
+       // $vbox->add(new TXMLBreadCrumb('menu.xml', 'EstagioList'));
         $vbox->add($this->form);
         $vbox->add(TPanelGroup::pack('', $this->datagrid, $this->pageNavigation));
         
