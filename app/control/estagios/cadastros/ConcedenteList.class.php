@@ -62,7 +62,7 @@ class ConcedenteList extends TPage
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
         $this->datagrid->addColumn($col_situacao);
-        $this->datagrid->addColumn($col_representante);
+        $this->datagrid->addColumn($convenio);
         $this->datagrid->addColumn($col_email);
     //  $this->datagrid->addColumn($cidade);
 
