@@ -29,7 +29,7 @@ class ConcedenteList extends TPage
         $this->setDatabase('estagio');        // defines the database
         $this->setActiveRecord('Concedente');       // defines the active record
         $this->addFilterField('nome', 'ilike', 'nome');
-        $this->addFilterField('situacao', 'ilike', 'situacao'); // filter field, operator, form field
+        $this->addFilterField('situacao', '=', 'situacao'); // filter field, operator, form field
         $this->setDefaultOrder('id', 'desc');  // define the default order
         
         // creates the form
