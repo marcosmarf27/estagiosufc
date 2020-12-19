@@ -201,14 +201,14 @@ class EstagioForm extends TPage
         $this->horarios->generateAria();
         $this->horarios->width = '100%';
         $this->horarios->name  = 'horarios_list';
-        $this->horarios->addField( '<b>Dia da Semana</b>', $dia_semana, ['width' => '15%']);
-        $this->horarios->addField( '<b>Manhã Inicio</b>', $turno_manha_ini );
-        $this->horarios->addField( '<b>Manhã Término</b>', $turno_manha_fim );
-        $this->horarios->addField( '<b>Tarde Inicio</b>', $turno_tarde_ini);
-        $this->horarios->addField( '<b>Tarde término</b>', $turno_tarde_fim);
-        $this->horarios->addField( '<b>Noite Inicio</b>', $turno_noite_ini);
-        $this->horarios->addField( '<b>Noite termino</b>', $turno_noite_fim);
-        $this->horarios->addField( '<b>Qtd Horas dia</b>', $total_dia);
+        $this->horarios->addField( '<b>Dia da Semana</b>', $dia_semana, ['width' => '16%']);
+        $this->horarios->addField( '<b>Manhã Inicio</b>', $turno_manha_ini , ['width' => '12%']);
+        $this->horarios->addField( '<b>Manhã Término</b>', $turno_manha_fim, ['width' => '12%'] );
+        $this->horarios->addField( '<b>Tarde Inicio</b>', $turno_tarde_ini, ['width' => '12%']);
+        $this->horarios->addField( '<b>Tarde término</b>', $turno_tarde_fim, ['width' => '12%']);
+        $this->horarios->addField( '<b>Noite Inicio</b>', $turno_noite_ini, ['width' => '12%']);
+        $this->horarios->addField( '<b>Noite termino</b>', $turno_noite_fim, ['width' => '12%']);
+        $this->horarios->addField( '<b>Qtd Horas dia</b>', $total_dia, ['width' => '12%']);
         
         $this->form->addField($dia_semana);
         $this->form->addField($turno_manha_ini);
