@@ -39,14 +39,15 @@ class PendenciaFormListAluno extends TPage
     {
         parent::__construct();
 
-        if(isset($param['estagio_id']) and isset($param['usuario_id'])){
+        if(isset($param['estagio_id']) and isset($param['usuario_id']))
+        {
           TSession::setValue(__CLASS__.'estagio_pendencia', $param['estagio_id']);
           TSession::setValue(__CLASS__.'usuario_pendencia', $param['usuario_id']);
-          }
+        }
         
     
        
-      //  parent::setSize(0.9, 0.9);
+     
         
         $this->setDatabase('estagio'); // define the database
         $this->setActiveRecord('Pendencia'); // define the Active Record
@@ -61,7 +62,7 @@ class PendenciaFormListAluno extends TPage
         
         // create the form
         $this->form = new BootstrapFormBuilder('form_pendencias');
-        $this->form->setFormTitle('Problemas encontrados');
+        $this->form->setFormTitle('Pendências detalhes');
         
         // create the form fields
         $id     = new THidden('id');
@@ -74,21 +75,14 @@ class PendenciaFormListAluno extends TPage
         $data_reg->setMask('dd/mm/yyyy');
         $data_reg->setDatabaseMask('yyyy-mm-dd');
         $tipo_pendencia = new TDBCombo('tipo_pendencia', 'estagio', 'Solucao', 'id', 'nome');
-       /*  $tipo_pendencia = new TCombo('tipo_pendencia');
-        $tipo_pendencia->addItems([ '1' => 'Ausencia de Assinaturas', 
-                                        '2' => 'Empresa não conveniada',
-                                        '3' => 'Estágio com rasuras',
-                                        '4' => 'Aluno não matriculado',
-                                        '5' => 'Datas invalidas',
-                                        '6' => 'Ausência de Assinaturas',
-                                        '7' => 'Apolice de seguro inválida']); */
+     
         $descricao = new TText('descricao');
-        $descricao->setSize('100%', 200);
+        $descricao->setSize('100%', 150);
         $descricao->style = "background-color: #E7E2E1";
         //$descricao->setEditable(FALSE);
         $descricao->placeholder = 'Resuma aqui os problemas encontrados';
        $parecer = new THtmlEditorSimples('parecer');
-       $parecer->setSize('100%', 800);
+       $parecer->setSize('100%', 400);
 
      
 
@@ -102,7 +96,7 @@ class PendenciaFormListAluno extends TPage
         $this->form->addFields( [new TLabel('Registro data')],  [$data_reg], [new TLabel('Tipo de Pendência')],  [$tipo_pendencia] );
         $this->form->addFields( [new TLabel('Solução:')],    [$descricao],    [$status] );
 
-        $label = new TLabel('Parecer/Descrição do Problema', '#7D78B6', 12, 'bi');
+        $label = new TLabel('Fundamento legal e observações', '#7D78B6', 12, 'bi');
         $label->style='text-align:left;border-bottom:1px solid #c0c0c0;width:100%';
         $this->form->addContent( [$label] );
         
@@ -131,7 +125,7 @@ class PendenciaFormListAluno extends TPage
         // add the columns
         $col_id    = new TDataGridColumn('id', 'Id', 'right', '10%');
         $col_tipo = new TDataGridColumn('tipo_pendencia', 'Tipo Pendência', 'left', '20%');
-        $col_descricao  = new TDataGridColumn('descricao', 'Descrição ', 'left', '60%');
+        $col_descricao  = new TDataGridColumn('descricao', 'Como solucionar', 'left', '60%');
         $col_data_reg  = new TDataGridColumn('data_reg', 'Data de registro', 'left', '20%');
         
         
@@ -146,46 +140,12 @@ class PendenciaFormListAluno extends TPage
         });
         
         $col_tipo->setTransformer( function($value, $object, $row) {
-
-          switch ($value) {
-              
-               case 1 :
-                return  'Ausencia de Assinaturas';
-              break;
-
-              case 2 :
-                return  'Ausencia de Assinaturas';
-              break;
-
-              case 3 :
-                return 'Empresa não conveniada';
-              break;
-
-              case 4:
-                return 'Estágio com rasuras';
-              break;
-             
-              
-              return 'Aluno não matriculado';
-            break;
-                case 5:
-                   return 'Datas invalidas';
-                break;
-                case 6:
-                   return 'Ausência de Assinaturas';
-                break;
-                case 7:
-                   return 'Apolice de seguro inválida';
-                break;
-                   
-                  
-                 
-             
-          }
+          return Product::findInTransaction('samples', $value)->nome;
+         
+        });
 
               
          
-      });
 
       $col_id->setTransformer( function($value, $object, $row) {
        if($object->status == 'S'){
