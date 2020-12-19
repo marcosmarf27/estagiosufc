@@ -65,22 +65,23 @@ class PendenciaFormListAluno extends TPage
         $this->form->setFormTitle('Pendências detalhes');
         
         // create the form fields
-        $id     = new THidden('id');
-        $status    = new THidden('status');
-       // $status->setValue('N');
+       // $id     = new THidden('id');
+       // $status    = new THidden('status');
+      
        
-        $estagio_id    = new THidden('estagio_id');
-        $system_user_id     = new THidden('system_user_id');
-        $data_reg = new TDate('data_reg');
-        $data_reg->setMask('dd/mm/yyyy');
-        $data_reg->setDatabaseMask('yyyy-mm-dd');
-        $tipo_pendencia = new TDBCombo('tipo_pendencia', 'estagio', 'Solucao', 'id', 'nome');
+       // $estagio_id    = new THidden('estagio_id');
+      //  $system_user_id     = new THidden('system_user_id');
+       // $data_reg = new THidden('data_reg');
+       // $data_reg->setMask('dd/mm/yyyy');
+       // $data_reg->setDatabaseMask('yyyy-mm-dd');
+       // $data_reg->
+       // $tipo_pendencia = new TDBCombo('tipo_pendencia', 'estagio', 'Solucao', 'id', 'nome');
      
-        $descricao = new TText('descricao');
-        $descricao->setSize('100%', 150);
-        $descricao->style = "background-color: #E7E2E1";
-        //$descricao->setEditable(FALSE);
-        $descricao->placeholder = 'Resuma aqui os problemas encontrados';
+       // $descricao = new TText('descricao');
+       // $descricao->setSize('100%', 150);
+       // $descricao->style = "background-color: #E7E2E1";
+       
+       // $descricao->placeholder = 'Resuma aqui os problemas encontrados';
        $parecer = new THtmlEditorSimples('parecer');
        $parecer->setSize('100%', 400);
 
@@ -92,9 +93,9 @@ class PendenciaFormListAluno extends TPage
         
         // add the form fields
        
-        $this->form->addFields(   [$id] ,    [$system_user_id],  [$estagio_id] );
-        $this->form->addFields( [new TLabel('Registro data')],  [$data_reg], [new TLabel('Tipo de Pendência')],  [$tipo_pendencia] );
-        $this->form->addFields( [new TLabel('Solução:')],    [$descricao],    [$status] );
+       // $this->form->addFields(   [$id] ,    [$system_user_id],  [$estagio_id] );
+       // $this->form->addFields( [new TLabel('Registro data')],  [$data_reg], [new TLabel('Tipo de Pendência')],  [$tipo_pendencia] );
+       // $this->form->addFields( [new TLabel('Solução:')],    [$descricao],    [$status] );
 
         $label = new TLabel('Fundamento legal e observações', '#7D78B6', 12, 'bi');
         $label->style='text-align:left;border-bottom:1px solid #c0c0c0;width:100%';
@@ -103,21 +104,18 @@ class PendenciaFormListAluno extends TPage
         $this->form->addFields( [$parecer] );
        
         
-      //  $name->addValidation('Name', new TRequiredValidator);
-        
-        // define the form actions
-       // $this->form->addAction( 'Salvar Registro', new TAction([$this, 'onSave']), 'fa:save green');
-      //  $this->form->addActionLink( 'Novo Registro',new TAction([$this, 'onClear']), 'fa:eraser red');
+     
       
         // make id not editable
-        $id->setEditable(FALSE);
+      /*   $id->setEditable(FALSE);
         $estagio_id->setEditable(FALSE);
         $status->setEditable(FALSE);
         $system_user_id->setEditable(FALSE);
         $descricao->setEditable(FALSE);
-        $parecer->setEditable(FALSE);
+        
         $data_reg->setEditable(FALSE);
-        $tipo_pendencia->setEditable(FALSE);
+        $tipo_pendencia->setEditable(FALSE); */
+        $parecer->setEditable(FALSE);
         // create the datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
         $this->datagrid->width = '100%';
