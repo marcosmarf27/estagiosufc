@@ -5,14 +5,21 @@ class PublicView extends TPage
     {
         parent::__construct();
         
-        $iframe = new TElement('iframe');
-        $iframe->id = "iframe_external";
-        $iframe->src = "http://dmontier.pro.br/balcao/";
-        $iframe->frameborder = "0";
-        $iframe->scrolling = "yes";
-        $iframe->width = "100%";
-        $iframe->height = "900px";
+        $html1 = new THtmlRenderer('app/resources/system_welcome_pt.html');
+        $html1->enableSection('main', array());
+      
+
+       
+      
         
-        parent::add($iframe); 
+        $panel1 = new TPanelGroup('BEM-VINDO AO NOVO SISTEMA DE ESTÁGIOS!');
+        $panel1->add($html1);
+        
+    
+        
+        $vbox = TVBox::pack($panel1);
+        $vbox->style = 'display:block; width: 100%';
+        
+        parent::add($panel1); 
     }
 }
