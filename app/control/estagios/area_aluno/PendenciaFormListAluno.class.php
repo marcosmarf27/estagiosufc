@@ -140,7 +140,7 @@ class PendenciaFormListAluno extends TPage
         });
         
         $col_tipo->setTransformer( function($value, $object, $row) {
-          return Product::findInTransaction('samples', $value)->nome;
+          return Product::findInTransaction('estagio', $value)->nome;
          
         });
 
