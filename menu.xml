@@ -23,11 +23,11 @@
         <icon>fas:chalkboard-teacher fa-fw</icon>
         <menu>
           <menuitem label="Lista de Convênios">
-            <action>ConvenioList</action>
+            <action>ConvenioList#register_state=false</action>
             <icon>fas:align-left fa-fw</icon>
           </menuitem>
           <menuitem label="Solicitar Convênio">
-            <action>EmpresaFormAluno</action>
+            <action>EmpresaFormAluno#register_state=false</action>
             <icon>fas:align-left fa-fw</icon>
           </menuitem>
         </menu>
