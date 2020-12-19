@@ -4,15 +4,15 @@
     <icon>fas:address-card fa-fw</icon>
     <menu>
       <menuitem label="Ver meus termos">
-        <action>EstagioListAluno</action>
+        <action>EstagioListAluno#register_state=false</action>
         <icon>fas:align-left fa-fw</icon>
       </menuitem>
       <menuitem label="Solicitar Avaliação de Estágio">
-        <action>EstagioForm#method=onClear</action>
+        <action>EstagioForm#method=onClear#register_state=false</action>
         <icon>fas:folder-plus fa-fw</icon>
       </menuitem>
       <menuitem label="Meu cadastro">
-        <action>AlunoForm#method=Editar</action>
+        <action>AlunoForm#method=Editar#register_state=false</action>
         <icon>fas:address-book fa-fw</icon>
       </menuitem>
     
