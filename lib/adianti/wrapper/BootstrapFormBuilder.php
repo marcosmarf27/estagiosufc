@@ -688,7 +688,7 @@ class BootstrapFormBuilder implements AdiantiFormInterface
         
         $body = new TElement('div');
         $body->{'class'} = 'card-body panel-body';
-        $body->{'style'} = 'width: 100%';
+        $body->{'style'} = 'width: 100%; overflow-x: auto;';
         
         $panel->add($this->decorated);
         $this->decorated->add($body);
@@ -747,7 +747,7 @@ class BootstrapFormBuilder implements AdiantiFormInterface
             $tabpanel = new TElement('div');
             $tabpanel->{'role'}  = 'tabpanel';
             $tabpanel->{'class'} = 'tab-pane ' . ( ($tab_counter == $this->current_page) ? 'active' : '' );
-            $tabpanel->{'style'} = 'padding:10px; margin-top: -1px;';
+            $tabpanel->{'style'} = 'padding:10px; margin-top: -1px; min-width: 900px;';
             if ($tab)
             {
                 $tabpanel->{'style'} .= 'border: 1px solid #DDDDDD';

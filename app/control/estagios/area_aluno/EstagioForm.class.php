@@ -223,7 +223,7 @@ class EstagioForm extends TPage
     
       
      
-        $this->form->addContent( [ new TLabel('Horarios:') ], [ $this->horarios ] );
+        $this->form->addContent( [ $this->horarios ] );
 
      
 
@@ -242,6 +242,7 @@ class EstagioForm extends TPage
                                   '7' => 'Histórico Acadêmico' ]);
        // $obs = new TEntry('obs[]');
         $url = new TFile('url[]');
+        $url->setSize('100%');
         $url->setDisplayMode('file');
        // $url->setDisplayMode('file');
        // $url->enableFileHandling();
@@ -261,9 +262,8 @@ class EstagioForm extends TPage
        
        $url->setAllowedExtensions(['pdf']);
        
-        $tipo_doc->setSize('100%');
        // $obs->setSize('100%');
-        $url->setSize('100%');
+    
         //$data_envio->setSize('100%');
         //$url->setHeight('100%');
       
@@ -293,7 +293,7 @@ class EstagioForm extends TPage
    
       
      
-        $this->form->addContent( [ new TLabel('Documentos do Estágio:') ], [ $this->documentos ] );
+        $this->form->addContent( [ $this->documentos ] );
       
       
         
