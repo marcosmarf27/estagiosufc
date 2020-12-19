@@ -119,7 +119,7 @@ class PendenciaFormListAluno extends TPage
         // create the datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
         $this->datagrid->width = '100%';
-        $this->datagrid->enablePopover('Clique para ver mais detalhes e fumdamentação legal');
+        $this->datagrid->enablePopover('<b>Info</b>', 'Clique para ver mais detalhes, solução e fundamentação legal');
         
         // add the columns
         $col_id    = new TDataGridColumn('id', 'Id', 'right', '10%');
