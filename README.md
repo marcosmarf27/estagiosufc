@@ -18,8 +18,23 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Área do Aluno
 - [x] Área administrativa
 - [x] Convênios
+- [x] notificações
+- [x] configuração e instalação aws amazon
+- [x] otimização de dados e banco de dados
 - [ ] Envio de e-mails e templates
 - [ ] Ajustar interfaces e usabilidade
+- [ ] Assinaturas eletronicas 
+- [ ] Dashboard com mais dados
+- [ ] Refatorar códigos críticos para mais eficiência
+- [ ] Implementar calendário para agendamentos
+- [ ] Controle de avaliação qualidade dos estágios
+- [ ] automação de tarefas de avaliação de estágios
+- [ ] Cadastro de Vagas
+- [ ] Area do professor
+- [ ] Area de Relatórios
+
+
+
 
 
 

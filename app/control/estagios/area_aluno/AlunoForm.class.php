@@ -29,31 +29,26 @@ class AlunoForm extends TPage
 {
     protected $form; // form
     
-    // trait with onSave, onClear, onEdit
     use Adianti\Base\AdiantiStandardFormTrait;
-    
-    /**
-     * Class constructor
-     * Creates the page and the registration form
-     */
+        
     function __construct()
     {
         parent::__construct();
+        $this->setDatabase('estagio');   
+        $this->setActiveRecord('Aluno');
         
-        $this->setDatabase('estagio');    // defines the database
-        $this->setActiveRecord('Aluno');   // defines the active record
-        
-        
-        // creates the form
         $this->form = new BootstrapFormBuilder('form_aluno');
         $this->form->setFormTitle('Cadastro de aluno');
         $this->form->setClientValidation(true);
+        
+      
         
         
         // create the form fields
         $id       = new THidden('id');
         $status       = new THidden('status');
         $status->setValue('S');
+        
         $userid = TSession::getValue('userid');
         $system_user_id       = new THidden('system_user_id');
         $system_user_id->setValue($userid);

@@ -5,6 +5,10 @@
                 <icon></icon>
                 <action>ConvenioList</action>
             </menuitem>
+             <menuitem label='Solicitar Convênio'>
+                <icon></icon>
+                <action>EmpresaFormAluno</action>
+            </menuitem>
            
         </menu>
     </menuitem>
