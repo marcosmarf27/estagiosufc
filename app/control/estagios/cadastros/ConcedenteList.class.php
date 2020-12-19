@@ -59,7 +59,7 @@ class ConcedenteList extends TPage
         $col_name  = new TDataGridColumn('nome', 'Name', 'left', '30%');
         $col_situacao  = new TDataGridColumn('situacao', 'Status', 'left', '30%');
         $convenio= new TDataGridColumn('n_convenio', 'Nº processo', 'left', '20%');
-        $col_email  = new TDataGridColumn('email', 'E-mail', 'left', '20%');
+        $criacao  = new TDataGridColumn('criacao', 'Data envio', 'left', '20%');
         //$cidade = new TDataGridColumn('cidade->nome', 'Cidade', 'center', '10%');
        
         
@@ -67,7 +67,7 @@ class ConcedenteList extends TPage
         $this->datagrid->addColumn($col_name);
         $this->datagrid->addColumn($col_situacao);
         $this->datagrid->addColumn($convenio);
-        $this->datagrid->addColumn($col_email);
+        $this->datagrid->addColumn($criacao);
     //  $this->datagrid->addColumn($cidade);
 
       $col_situacao->setTransformer(array($this, 'Ajustar'));

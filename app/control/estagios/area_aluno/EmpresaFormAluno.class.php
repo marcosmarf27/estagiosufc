@@ -143,6 +143,7 @@ class EmpresaFormAluno extends TPage
             // get form data
             $data   = $this->form->getData();
             $data->situacao = '3';
+            $data->n_convenio = 'Aguardando parecer da procuradoria';
           
             
             // store product

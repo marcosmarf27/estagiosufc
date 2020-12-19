@@ -61,7 +61,7 @@ class SystemRegistrationForm extends TPage
         $wrapper->style = 'margin:auto; margin-top:100px;max-width:600px;';
         $wrapper->id    = 'login-wrapper';
         $wrapper->add($this->form);
-        $wrapper->add('<b>ATENÇÃO</b> - O aluno deve completar seu cadastro após login, visto que esse cadastro de usuário não é cadastro do aluno.');
+        $wrapper->add('<b>ATENÇÃO</b> - Qualquer dúvida em relação ao uso do sistema entrar em contato EXCLUSIVAMENTE pelo WHATSAPP <b>88 3411-9226</b>');
         
         // add the wrapper to the page
         parent::add($wrapper);
