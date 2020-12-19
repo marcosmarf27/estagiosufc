@@ -448,7 +448,7 @@ class EstagioForm extends TPage
                         $this->form->setData($dados);
                       
                         //notifica o admnistrador que um termo foi envaido
-                        SystemNotification::register(1, 'Novo termo recebido', 'Avaliar Termo de Estágio', 'class=EstagioList&method=abrir&termo_id='. $estagio->id, 'Avaliar', 'fa fa-list blue alt');
+                        SystemNotification::register(1, 'Novo termo recebido', 'Avaliar Termo de Estágio', 'class=EstagioList&method=abrir&termo_id='. $estagio->id, 'Avaliar', 'fas fa-user-friends');
                         
                        
                         

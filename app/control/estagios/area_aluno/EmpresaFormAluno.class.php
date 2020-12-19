@@ -160,6 +160,7 @@ class EmpresaFormAluno extends TPage
             // send id back to the form
             $data->id = $object->id;
             $this->form->setData($data);
+            SystemNotification::register(1, 'Novo convênio recebido', 'Avaliar Convênio', 'class=ConcedenteList', 'Avaliar', 'fas fa-user-tie');
             
             TTransaction::close();
       
