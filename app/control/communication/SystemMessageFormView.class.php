@@ -24,6 +24,7 @@ class SystemMessageFormView extends TPage
             // load the html template
             $html = new THtmlRenderer('app/resources/system_message_form_view.html');
             $html->enableTranslation();
+            $html->disableHtmlConversion();
             
             TTransaction::open('communication');
             if (isset($data->id))

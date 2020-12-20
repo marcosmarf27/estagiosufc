@@ -64,71 +64,68 @@ class EstagioListAluno extends TPage
         $this->datagrid->width = '100%';
         $this->datagrid->datatable = 'true';
         $this->datagrid->enablePopover('Detalhes', '<b>Nº doc:</b> {id} <br> <b>Estágio:</b> {tipo_estagio->nome} <br> <b>Nome:</b> {aluno->nome} <br> <b>Curso:</b> {aluno->curso->nome} <br> <b>Ano:</b> {ano} - <b>Mês:</b> {mes}');
-       // $this->datagrid->height = '500px';
+       
      
         
-        // creates the datagrid columns
-      //  $column_id       = new TDataGridColumn('id', 'nº Estágio', 'center', '5%');
-        $column_situacao    = new TDataGridColumn('situacao', 'Status', 'center', '30%');
-      //  $column_aluno = new TDataGridColumn('aluno->nome', 'Aluno', 'left', '20%');
-        $column_tipo = new TDataGridColumn('tipo_estagio->nome', 'TCE tipo', 'left', '20%');
-        $column_concedente = new TDataGridColumn('concedente->nome', 'Concedente', 'left', '20%');
-        $column_data_ini     = new TDataGridColumn('data_ini', 'Data Inicio', 'center', '15%');
+      
+        $column_situacao    = new TDataGridColumn('situacao', 'Status', 'center', '20%');
+        $column_tipo        = new TDataGridColumn('tipo_estagio->nome', 'TCE tipo', 'left', '20%');
+        $column_concedente  = new TDataGridColumn('concedente->nome', 'Concedente', 'left', '30%');
+        $column_data_ini    = new TDataGridColumn('data_ini', 'Data Inicio', 'center', '15%');
         $column_data_fim    = new TDataGridColumn('data_fim', 'Data Término', 'center', '15%');
         $column_tipo->setDataProperty('style','font-weight: bold');
+      
        
   
         
-        // add the columns to the DataGrid
-       // $this->datagrid->addColumn($column_id);
+      
         $this->datagrid->addColumn($column_situacao);
         $this->datagrid->addColumn($column_concedente);
-       // $this->datagrid->addColumn($column_aluno);
         $this->datagrid->addColumn($column_tipo);
-       
         $this->datagrid->addColumn($column_data_ini);
         $this->datagrid->addColumn($column_data_fim);
        
+       
+       
 
-        //Transformação que define a situação do estagio 
+        
         $column_situacao->setTransformer( array($this, 'ajustarSituacao'));
         
-        // creates the datagrid column actions
-      //  $column_id->setAction(new TAction([$this, 'onReload']),   ['order' => 'id']);
+        //define ordem do datagrid
         $column_data_ini->setAction(new TAction([$this, 'onReload']), ['order' => 'data_ini']);
         
         // define the transformer method over date
-        $column_data_ini->setTransformer( function($value, $object, $row) {
+        $column_situacao->setTransformer( array($this, 'ajustarSituacao'));
+        
+        $column_data_ini->setTransformer( function($value, $object, $row) 
+        {
             $date = new DateTime($value);
             return $date->format('d/m/Y');
         });
-        $column_data_fim->setTransformer( function($value, $object, $row) {
+        
+        $column_data_fim->setTransformer( function($value, $object, $row) 
+        {
             $date = new DateTime($value);
             return $date->format('d/m/Y');
         });
 
   
         $action_aditivo = new TDataGridAction([$this, 'gerarAditivo'],   ['key' => '{id}', 'estagio'=> '{id}', 'register_state' => 'false'] );
-      //  $action_relatorio = new TDataGridAction([$this, 'gerarRelatorio'],   ['key' => '{id}', 'estagio_id' => '{id}', 'usuario_id' => '{system_user_id}', 'register_state' => 'false'] );
         $action_rescisao = new TDataGridAction([$this, 'gerarRescisao'],   ['key' => '{id}', 'register_state' => 'false'] );
-        $action_edit = new TDataGridAction(['EstagioForm', 'onEdit'],   ['key' => '{id}', 'estagio_edit' => '{estagio_ref}', 'register_state' => 'false'] );
         $action_ver = new TDataGridAction(['PendenciaFormListAluno', 'registraPendencia'],   ['key' => '{id}', 'estagio_id' => '{id}',  'usuario_id' => '{system_user_id}', 'register_state' => 'false'] );
         $action_doc = new TDataGridAction([$this, 'entregarDoc'],   ['key' => '{id}', 'estagio_id' => '{id}', 'usuario_id' => '{system_user_id}', 'register_state' => 'false'] );
+     
         
-        $action_edit->setDisplayCondition([$this, 'displayAcao']);
-      //  $action_relatorio->setDisplayCondition([$this, 'displayAcaoR']);
         $action_aditivo->setDisplayCondition([$this, 'displayAcaoA']);
         $action_rescisao->setDisplayCondition([$this, 'displayAcaoRE']);
         $action_ver->setDisplayCondition([$this, 'displayAcaoVer']);
       
+      
         
         $this->datagrid->addAction($action_doc, '<b>Documentos</b> - adicionar/listar documentos', 'fa:list-alt blue');
         $this->datagrid->addAction($action_aditivo, '<b>Termo de Aditivo</b> - Registrar Aditivo', 'far:clone green');
-       // $this->datagrid->addAction($action_relatorio, '<b>Relatório</b> - Entregar relatório', 'fas:book fa-fw');
-       $this->datagrid->addAction($action_rescisao, '<b>Rescisão</b> - Registrar Rescisão', 'fa:power-off orange'); 
-       $this->datagrid->addAction($action_edit, '<b>Editar</b> - Informe as novos dados', 'far:edit blue fa-fw');
-       $this->datagrid->addAction($action_ver, '<b>Ver</b> - Ver pendências/soluções', 'fas:eye fa-fw');
-     //  $this->datagrid->addAction($action_doc, '<b>Documentos</b> - Entregar documentos complementares', 'fas:file-upload fa-fw');
+        $this->datagrid->addAction($action_rescisao, '<b>Rescisão</b> - Registrar Rescisão', 'fa:power-off orange'); 
+        $this->datagrid->addAction($action_ver, '<b>Ver</b> - Ver pendências/soluções', 'fas:eye fa-fw');
 
 
         $this->datagrid->createModel();
@@ -147,133 +144,116 @@ class EstagioListAluno extends TPage
         parent::add($container);
     }
 
-    public function gerarAditivo($param){
+public function gerarAditivo($param)
+    {
 
 
         $action1 = new TAction(array($this, 'gerarAditivoEfetivo'));
-       // $action2 = new TAction(array($this, 'onAction2'));
-        // define os parâmetros de cada ação
         $action1->setParameter('estagio', $param['estagio']);
-//$action2->setParameter('parameter', 2);
-        
-        // shows the question dialog
+      
         new TQuestion('Gostaria de registrar um aditivo para esse termo ?', $action1);
-
-       
-
-
-        
-       
-       // AdiantiCoreApplication::loadPage('AlunoForm', 'Editar', $param);
-       // TScript::create("__adianti_load_page('engine.php?class=AlunoForm&method=Editar');");
-
-        
 
     }
 
-    public function gerarRelatorio($param){
+       
+
+
+        
+       
+      
+
+        
+
+
+public function gerarRelatorio($param)
+    {
 
 
         
         $action1 = new TAction(array('DocumentoFormListAluno', 'registraDocumento'));
-       // $action2 = new TAction(array($this, 'onAction2'));
-        // define os parâmetros de cada ação
+       
         $action1->setParameter('estagio_id', $param['estagio_id']);
         $action1->setParameter('usuario_id', $param['usuario_id']);
-//$action2->setParameter('parameter', 2);
-        
-        // shows the question dialog
+
         new TQuestion('Gostaria de entregar o relatório para esse termo de estágio ?', $action1);
 
 
     }
+        
+      
 
-    public function entregarDoc($param){
+public function entregarDoc($param)
+    {
 
 
         
         $action1 = new TAction(array('EntregaDocumentoAluno', 'registraDocumento'));
-       // $action2 = new TAction(array($this, 'onAction2'));
-        // define os parâmetros de cada ação
         $action1->setParameter('estagio_id', $param['estagio_id']);
         $action1->setParameter('usuario_id', $param['usuario_id']);
-//$action2->setParameter('parameter', 2);
-        
-        // shows the question dialog
+      
         new TQuestion('Acessar documentos do estágio?', $action1);
+
 
 
     }
 
-        public function displayAcao( $object )
+   
+   //métodos para visualização das ações
+public function displayAcao( $object )
     {
         if ($object->tipo_estagio_id == '3' and is_null($object->editado))
         {
             return TRUE;
         }
-        return FALSE;
+            return FALSE;
     }
-    public function displayAcaoR( $object )
+public function displayAcaoR( $object )
     {
         if ($object->tipo_estagio_id == '1' or $object->tipo_estagio_id == '2' or $object->editado == 'S')
         {
             return TRUE;
         }
-        return FALSE;
+            return FALSE;
     }
 
-    public function displayAcaoA( $object )
+public function displayAcaoA( $object )
     {
         if ($object->tipo_estagio_id == '1' or $object->tipo_estagio_id == '2' or $object->editado == 'S')
         {
             return TRUE;
         }
-        return FALSE;
+            return FALSE;
     }
-    public function displayAcaoRE( $object )
+public function displayAcaoRE( $object )
     {
         if ($object->tipo_estagio_id == '1' or $object->tipo_estagio_id == '2' or $object->editado == 'S')
         {
             return TRUE;
         }
-        return FALSE;
+            return FALSE;
     }
 
-    public function displayAcaoVer( $object )
+public function displayAcaoVer( $object )
     {
         if ($object->situacao == '4')
         {
             return TRUE;
         }
-        return FALSE;
+            return FALSE;
     }
     
 
-    /* public function gerarRescisao($param){
-
-        $action1 = new TAction(array($this, 'gerarRescisaoEfetivo'));
-        // $action2 = new TAction(array($this, 'onAction2'));
-         // define os parâmetros de cada ação
-         $action1->setParameter('key', $param['key']);
-       
- //$action2->setParameter('parameter', 2);
-         
-         // shows the question dialog
-         new TQuestion("Gostaria realmente de <b>Rescindir</b>  esse estágio?", $action1);
-
-    }
-
-
- */
+ 
 
 public static function gerarRescisao( $param )
 {
-try{
+    try{
 
     TTransaction::open('estagio');
     $estagio = new Estagio($param['key']);
 
-    if($estagio){
+    if($estagio)
+    {
         if ($estagio->situacao == '3'){
             throw new Exception('Termo de Estágio já rescindido!');
             exit;
@@ -307,7 +287,7 @@ try{
     TTransaction::rollback();
 }
 }
-    public function gerarAditivoEfetivo($param){
+public function gerarAditivoEfetivo($param){
 
         TTransaction::open('estagio');
 
@@ -326,11 +306,11 @@ try{
 
     }
 
-    public function gerarRelatorioEfetivo($param){
+public function gerarRelatorioEfetivo($param){
 
     }
 
-    public static function gerarRescisaoEfetivo($param){
+public static function gerarRescisaoEfetivo($param){
 
 
         TTransaction::open('estagio');
@@ -346,7 +326,7 @@ try{
 
     }
 
-    public  function Limpar($param)
+public  function Limpar($param)
     {
 
        
@@ -354,36 +334,89 @@ try{
         
     }
 
-    public function abrir($param){
+public function abrir($param){
 
         
      
     }
 
-   public function ajustarSituacao($value, $object, $row){
+public function ajustarSituacao($value, $object, $row){
 
  
 
     $pendencias = Pendencia::where('estagio_id', '=', $object->id)->where('status', '=', 'N')->load();
 
-    if($pendencias){
+        if($pendencias)
+        {
         
-     TTransaction::open('estagio');
+        TTransaction::open('estagio');
      
+        $estagio = Estagio::find($object->id);
+        $estagio->situacao = '4';
+        $estagio->store();
+
+        TTransaction::close();
+        }
 
 
 
-    $estagio = Estagio::find($object->id);
-    $estagio->situacao = '4';
-    $estagio->store();
    
+        switch ($object->situacao) 
+        {
+            case 1:
+                $div = new TElement('span');
+                $div->class="label label-primary";
+                $div->style="text-shadow:none; font-size:12px";
+                $div->add('Em Avaliação');
+                return $div;
+                break;
+            case 2:
+                $div = new TElement('span');
+                $div->class="label label-success";
+                $div->style="text-shadow:none; font-size:12px";
+                $div->add('Estágio Aprovado');
+                return $div;
+                break;
+    
+            case 3:
+                $div = new TElement('span');
+                $div->class="label label-danger";
+                $div->style="text-shadow:none; font-size:12px";
+                $div->add('Rescindido');
+                return $div;
+                break;
+    
+            case 4:
+                $div = new TElement('span');
+                $div->class="label label-warning";
+                $div->style="text-shadow:none; font-size:12px";
+                $div->add('Estágio com problemas');
+                return $div;
+                break;
+    
+            case 5:
+                    $div = new TElement('span');
+                    $div->class="label label-danger";
+                        $div->style="text-shadow:none; font-size:12px";
+                    $div->add('Cancelado');
+                    return $div;
+                    break;
+        
+                    
+                
+         
+        }
+        
+        $this->carregar();
+    
+    
+       }
 
     
-    TTransaction::close();
+   
 
    
 
- }
 
  
 
@@ -394,56 +427,8 @@ try{
     
 
 
-    switch ($object->situacao) {
-        case 1:
-            $div = new TElement('span');
-            $div->class="label label-primary";
-             $div->style="text-shadow:none; font-size:12px";
-            $div->add('Em Avaliação');
-            return $div;
-            break;
-        case 2:
-            $div = new TElement('span');
-            $div->class="label label-success";
-             $div->style="text-shadow:none; font-size:12px";
-            $div->add('Estágio Aprovado');
-            return $div;
-            break;
 
-            case 3:
-                $div = new TElement('span');
-                $div->class="label label-danger";
-                 $div->style="text-shadow:none; font-size:12px";
-                $div->add('Rescindido');
-                return $div;
-                break;
-
-                case 4:
-                    $div = new TElement('span');
-                    $div->class="label label-warning";
-                     $div->style="text-shadow:none; font-size:12px";
-                    $div->add('Estágio com problemas');
-                    return $div;
-                    break;
-
-                    case 5:
-                        $div = new TElement('span');
-                        $div->class="label label-danger";
-                         $div->style="text-shadow:none; font-size:12px";
-                        $div->add('Cancelado');
-                        return $div;
-                        break;
-         
-                
-            
-     
-    }
-    $this->carregar();
-
-
-   }
-
-   public function carregar(){
+public function carregar(){
 
     AdiantiCoreApplication::loadPage('EstagioListAluno', 'onReload');
 
@@ -452,7 +437,7 @@ try{
  
    
    
-   public function aprovarTermo($param){
+public function aprovarTermo($param){
 
     TTransaction::open('estagio');
      
@@ -467,8 +452,7 @@ try{
  
     TTransaction::close();
     $action1 = new TAction(array($this, 'onReload'));
-   // $action2 = new TAction(array($this, 'onReload'));
-    // define os parâmetros de cada ação
+   
    
     
     // shows the question dialog

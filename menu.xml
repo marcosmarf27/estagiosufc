@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
   <menuitem label="Termos de Estágios">
-    <icon>fas:address-card fa-fw</icon>
+    <icon>fas:address-card fa-fw #5baccc</icon>
     <menu>
       <menuitem label="Ver meus termos">
         <action>EstagioListAluno#register_state=false</action>
@@ -15,25 +15,22 @@
         <action>AlunoForm#method=Editar#register_state=false</action>
         <icon>fas:address-book fa-fw</icon>
       </menuitem>
-    
     </menu>
   </menuitem>
-    <menuitem label="Convênios">
-        <action></action>
-        <icon>fas:chalkboard-teacher fa-fw</icon>
-        <menu>
-          <menuitem label="Lista de Convênios">
-            <action>ConvenioList#register_state=false</action>
-            <icon>fas:align-left fa-fw</icon>
-          </menuitem>
-          <menuitem label="Solicitar Convênio">
-            <action>EmpresaFormAluno#register_state=false</action>
-            <icon>fas:align-left fa-fw</icon>
-          </menuitem>
-        </menu>
+  <menuitem label="Convênios">
+    <icon>fas:chalkboard-teacher fa-fw #5baccc</icon>
+    <menu>
+      <menuitem label="Lista de Convênios">
+        <action>ConvenioList#register_state=false</action>
+        <icon>fas:align-left fa-fw</icon>
       </menuitem>
+      <menuitem label="Solicitar Convênio">
+        <action>EmpresaFormAluno#register_state=false</action>
+        <icon>fas:align-left fa-fw</icon>
+      </menuitem>
+    </menu>
+  </menuitem>
   <menuitem label="Gestor de Estágios">
-    <action></action>
     <icon>fas:align-left fa-fw</icon>
     <menu>
       <menuitem label="Termos Recebidos">

@@ -67,7 +67,7 @@ class SystemMessageList extends TStandardList
 
         // creates the datagrid columns
         $column_message = new TDataGridColumn('message', _t('Message'), 'left', '60%');
-        $column_from    = new TDataGridColumn('user_mixed->name', _t('User'), 'center', '20%');
+        $column_from    = new TDataGridColumn('user_mixed->name', 'Enviado por', 'center', '20%');
         $column_date    = new TDataGridColumn('dt_message', _t('Date'), 'center', '20%');
         
         $column_from->setTransformer( function($value, $object, $row) {

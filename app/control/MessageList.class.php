@@ -77,9 +77,9 @@ class MessageList extends TElement
                     ['href'=> (new TAction(['SystemMessageList', 'filterInbox']))->serialize(),
                      'generator'=>'adianti'] ), ['class'=>'footer'] ));
                 
-                parent::add(TElement::tag('li', TElement::tag('a', _t('Send message'),
+              /*   parent::add(TElement::tag('li', TElement::tag('a', _t('Send message'),
                     ['href'=> (new TAction(['SystemMessageForm', 'onClear']))->serialize(),
-                     'generator'=>'adianti'] ), ['class'=>'footer']));
+                     'generator'=>'adianti'] ), ['class'=>'footer'])); */
             }
             else if ($param['theme'] == 'theme4')
             {
@@ -149,9 +149,9 @@ class MessageList extends TElement
                     ['href'=> (new TAction(['SystemMessageList', 'filterInbox']))->serialize(),
                      'generator'=>'adianti'] ), ['class'=>'footer'] ));
                 
-                parent::add(TElement::tag('li', TElement::tag('a', _t('Send message'),
+            /*     parent::add(TElement::tag('li', TElement::tag('a', _t('Send message'),
                     ['href'=> (new TAction(['SystemMessageForm', 'onClear']))->serialize(),
-                     'generator'=>'adianti'] ), ['class'=>'footer']));
+                     'generator'=>'adianti'] ), ['class'=>'footer'])); */
             }
             
             TTransaction::close();
