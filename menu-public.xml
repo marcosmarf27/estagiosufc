@@ -11,7 +11,7 @@
             </menuitem>
              <menuitem label='Estatísticas'>
                 <icon></icon>
-                <action>SystemAdministrationDashboard</action>
+                <action>EstagiosDados</action>
             </menuitem>
            
         </menu>
