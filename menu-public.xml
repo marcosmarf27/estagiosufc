@@ -9,6 +9,10 @@
                 <icon></icon>
                 <action>EmpresaFormAluno</action>
             </menuitem>
+             <menuitem label='Estatísticas'>
+                <icon></icon>
+                <action>SystemAdministrationDashboard</action>
+            </menuitem>
            
         </menu>
     </menuitem>

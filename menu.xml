@@ -41,6 +41,10 @@
         <action>EstagioList</action>
         <icon>fas:exchange-alt fa-fw</icon>
       </menuitem>
+      <menuitem label="Dashboard">
+        <action>SystemAdministrationDashboard</action>
+        <icon>fas:tachometer-alt fa-fw</icon>
+      </menuitem>
     </menu>
   </menuitem>
   <menuitem label="Gestor de Convênios">
@@ -62,13 +66,13 @@
         <action>ProfessorFormList</action>
         <icon>fas:angle-right fa-fw</icon>
       </menuitem>
-      <menuitem label="Cadastrar Soluções">
+      <menuitem label="Templates Pendência">
         <action>SolucaoFormList</action>
         <icon>fas:angle-right fa-fw</icon>
       </menuitem>
     </menu>
   </menuitem>
-  <menuitem label="Configurações de Estágio">
+  <menuitem label="Configurações ">
     <icon>fas:cog fa-fw</icon>
     <menu>
       <menuitem label="Cadastro de Curso">
@@ -83,17 +87,17 @@
         <action>CidadeFormList</action>
         <icon>fas:angle-right fa-fw</icon>
       </menuitem>
-      <menuitem label="Cadastro de Tipo ">
+      <menuitem label="Tipo de Estágio">
         <action>TipoFormList</action>
         <icon>fas:angle-right fa-fw</icon>
       </menuitem>
-      <menuitem label="Cadastro de remunerações">
+      <menuitem label="Tipo de Pagamentos">
         <action>PagamentoFormList</action>
         <icon>fas:angle-right fa-fw</icon>
       </menuitem>
     </menu>
   </menuitem>
-  <menuitem label="Documentos de Estágios">
+  <menuitem label="Documentos ">
     <icon>far:file-alt fa-fw</icon>
     <menu>
       <menuitem label="_t{Send document}">

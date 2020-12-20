@@ -29,21 +29,21 @@ class SystemAdministrationDashboard extends TPage
             $indicator3 = new THtmlRenderer('app/resources/info-box.html');
             $indicator4 = new THtmlRenderer('app/resources/info-box.html');
             
-            $indicator1->enableSection('main', ['title' => _t('Users'),    'icon' => 'user',       'background' => 'orange', 'value' => SystemUser::count()]);
-            $indicator2->enableSection('main', ['title' => _t('Groups'),   'icon' => 'users',      'background' => 'blue',   'value' => SystemGroup::count()]);
-            $indicator3->enableSection('main', ['title' => _t('Units'),    'icon' => 'university', 'background' => 'purple', 'value' => SystemUnit::count()]);
-            $indicator4->enableSection('main', ['title' => _t('Programs'), 'icon' => 'code',       'background' => 'green',  'value' => SystemProgram::count()]);
+            $indicator1->enableSection('main', ['title' => 'Estágios Avaliados',    'icon' => 'user',       'background' => 'orange', 'value' => Estagio::count()]);
+            $indicator2->enableSection('main', ['title' => 'Convênios cadastrados',   'icon' => 'users',      'background' => 'blue',   'value' => Concedente::count()]);
+            $indicator3->enableSection('main', ['title' => 'Professores que já orientaram',    'icon' => 'university', 'background' => 'purple', 'value' => Professor::count()]);
+            $indicator4->enableSection('main', ['title' => 'Alunos cadastrados', 'icon' => 'code',       'background' => 'green',  'value' => SystemUser::count()]);
             
-            $chart1 = new THtmlRenderer('app/resources/google_bar_chart.html');
+            $chart1 = new THtmlRenderer('app/resources/google_pie_chart.html');
             $data1 = [];
-            $data1[] = [ 'Group', 'Users' ];
+            $data1[] = [ 'Tipo de Estágio', 'Quantidade' ];
             
-            $stats1 = SystemUserGroup::groupBy('system_group_id')->countBy('system_user_id', 'count');
+            $stats1 = Estagio::groupBy('tipo_estagio_id')->countBy('id', 'count');
             if ($stats1)
             {
                 foreach ($stats1 as $row)
                 {
-                    $data1[] = [ SystemGroup::find($row->system_group_id)->name, (int) $row->count];
+                    $data1[] = [ Tipo::find($row->tipo_estagio_id)->nome, (int) $row->count];
                 }
             }
             
@@ -51,31 +51,58 @@ class SystemAdministrationDashboard extends TPage
             $chart1->enableSection('main', ['data'   => json_encode($data1),
                                             'width'  => '100%',
                                             'height'  => '500px',
-                                            'title'  => _t('Users by group'),
-                                            'ytitle' => _t('Users'), 
-                                            'xtitle' => _t('Count'),
+                                            'title'  => 'Estágios por tipo',
+                                            'ytitle' => 'Tipos de Estágios', 
+                                            'xtitle' => 'Quantidade',
                                             'uniqid' => uniqid()]);
             
-            $chart2 = new THtmlRenderer('app/resources/google_pie_chart.html');
+            $chart2 = new THtmlRenderer('app/resources/google_column_chart.html');
             $data2 = [];
-            $data2[] = [ 'Unit', 'Users' ];
+            $data2[] = [ 'Ano', 'Estágios' ];
             
-            $stats2 = SystemUserUnit::groupBy('system_unit_id')->countBy('system_user_id', 'count');
+            $stats2 = Estagio::groupBy('ano')->countBy('id', 'count');
             
+            asort($stats2);
+            /* echo "<pre>";
+            print_r($stats2);
+            echo "</pre>"; */
             if ($stats2)
             {
                 foreach ($stats2 as $row)
                 {
-                    $data2[] = [ SystemUnit::find($row->system_unit_id)->name, (int) $row->count];
+                    $data2[] = [ $row->ano, (int) $row->count];
                 }
             }
-            // replace the main section variables
+          
             $chart2->enableSection('main', ['data'   => json_encode($data2),
+            'width'  => '100%',
+            'height'  => '500px',
+            'title'  => 'Estágios por ano',
+            'ytitle' =>  'Ano', 
+            'xtitle' => 'Quantidade',
+            'uniqid' => uniqid()]);
+
+
+            $chart3 = new THtmlRenderer('app/resources/google_column_chart.html');
+            $data3 = [];
+            $data3[] = [ 'Tipo de Estágio', 'Quantidade' ];
+            
+            $stats3 = Estagio::groupBy('concedente_id')->countBy('id', 'count');
+            if ($stats3)
+            {
+                foreach ($stats3 as $row)
+                {
+                    $data3[] = [ Concedente::find($row->concedente_id)->nome, (int) $row->count];
+                }
+            }
+            
+            // replace the main section variables
+            $chart3->enableSection('main', ['data'   => json_encode($data3),
                                             'width'  => '100%',
                                             'height'  => '500px',
-                                            'title'  => _t('Users by unit'),
-                                            'ytitle' => _t('Users'), 
-                                            'xtitle' => _t('Count'),
+                                            'title'  => 'Maiores Parceiros UFC Campus Russas',
+                                            'ytitle' => '', 
+                                            'xtitle' => 'Quantidade',
                                             'uniqid' => uniqid()]);
             
             $html->enableSection('main', ['indicator1' => $indicator1,
@@ -83,7 +110,8 @@ class SystemAdministrationDashboard extends TPage
                                           'indicator3' => $indicator3,
                                           'indicator4' => $indicator4,
                                           'chart1'     => $chart1,
-                                          'chart2'     => $chart2] );
+                                          'chart2'     => $chart2,
+                                          'chart3'     => $chart3] );
             
             $container = new TVBox;
             $container->style = 'width: 100%';
