@@ -37,6 +37,7 @@ class Concedente extends TRecord
         parent::addAttribute('arquivo');
         parent::addAttribute('pendencia');
         parent::addAttribute('cnpj');
+        parent::addAttribute('cnpj');
 
     }
 

@@ -63,7 +63,7 @@ class EmpresaFormAluno extends TPage
      
        
         $tipo = new TCombo('tipo');
-        $tipo->addItems(['1' => 'Empresa/Instituição', '3' => 'Profissional único']);
+        $tipo->addItems(['1' => 'Empresa/Instituição', '2'=> 'Projeto de Extensão' ,'3' => 'Profissional único']);
         $cidade_id = new TDBCombo('cidade_id', 'estagio', 'Cidade', 'id', 'nome');
         $cidade_id->enableSearch();
         $representante     = new TEntry('representante');
@@ -72,9 +72,14 @@ class EmpresaFormAluno extends TPage
         $endereco     = new TEntry('endereco');
         $arquivo     = new TFile('arquivo');
         $cnpj     = new TEntry('cnpj');
+        $cpf     = new TEntry('cpf');
         $cnpj->setMask('99.999.999/9999-99');
+        $cpf->setMask('999.999.999-99');
         $arquivo->enableFileHandling();
         $arquivo->enablePopover();
+
+        $tipo->setChangeAction(new TAction(array($this, 'onChangeType')));
+        self::onChangeType( ['_field_value' => '1'] );
       
         
         
@@ -101,8 +106,9 @@ class EmpresaFormAluno extends TPage
         $this->form->appendPage('Dados básicos');
         $this->form->addFields( [$id]);
         $this->form->addFields( [new TLabel('Nome')], [$nome],  [new TLabel('Tipo')], [$tipo] );
-        $this->form->addFields( [new TLabel('E-mail')], [$email], [new TLabel('CNPJ')], [$cnpj] );
-        $this->form->addFields( [new TLabel('Telefone')], [$telefone] );
+        $this->form->addFields( [new TLabel('E-mail')], [$email], [new TLabel('Telefone')], [$telefone] );
+        $this->form->addFields( [new TLabel('<b>CPF</b>')], [$cpf] );
+        $this->form->addFields( [new TLabel('<b>CNPJ</b>')], [$cnpj] );
         $this->form->addFields( [new TLabel('Representante')], [$representante] );
        
         $this->form->addFields( [new TLabel('Endereço')], [$endereco],  [new TLabel('Cidade')], [$cidade_id] );
@@ -176,5 +182,25 @@ class EmpresaFormAluno extends TPage
             new TMessage('error', $e->getMessage());
             TTransaction::rollback();
         }
+    }
+
+    public static function onChangeType($param)
+    {
+        if ($param['_field_value'] == '1' or $param['_field_value'] == '2')
+        {
+            TQuickForm::hideField('form_concedente_aluno', 'cpf');
+            TQuickForm::showField('form_concedente_aluno', 'cnpj');
+            
+           
+        }
+        else
+        {
+            TQuickForm::showField('form_concedente_aluno', 'cpf');
+            TQuickForm::hideField('form_concedente_aluno', 'cnpj');
+            
+         
+        }
+
+     
     }
 }
