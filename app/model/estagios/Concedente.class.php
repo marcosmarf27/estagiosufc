@@ -21,6 +21,7 @@ class Concedente extends TRecord
         parent::addAttribute('nome');
       
         parent::addAttribute('email');
+        parent::addAttribute('origem');
        
         parent::addAttribute('telefone');
         parent::addAttribute('cidade_id');
@@ -37,7 +38,7 @@ class Concedente extends TRecord
         parent::addAttribute('arquivo');
         parent::addAttribute('pendencia');
         parent::addAttribute('cnpj');
-        parent::addAttribute('cnpj');
+        parent::addAttribute('cpf');
 
     }
 
