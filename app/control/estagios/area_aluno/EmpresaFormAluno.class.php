@@ -137,14 +137,16 @@ class EmpresaFormAluno extends TPage
         $html1->disableHtmlConversion();
         $html1->enableSection('main', array());
        
-        $panel1 = new TPanelGroup('INSTRUÇÕES E INFORMAÇÕES IMPORTANTES SOBRE CONVÊNIO');
-        $panel1->add($html1);
+        $acordion = new TAccordion;
+        $acordion->appendPage('INSTRUÇÕES E INFORMAÇÕES IMPORTANTES SOBRE CONVÊNIO', $html1);
+     
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
+       
         
         $vbox->add($this->form);
-        $vbox->add($panel1);
+        $vbox->add($acordion);
         parent::add($vbox);
     }
 
