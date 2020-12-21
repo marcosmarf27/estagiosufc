@@ -9,6 +9,9 @@
 ##ÁREA ALUNO
 <img src="aluno.png" alt="exemplo imagem">
 
+##DASHBOARD
+<img src="dashboard.png" alt="exemplo imagem">
+
 > o SISTEMA DE ESTÁGIOS gerencia e registra todos os processos de estágios do Campus Russas - UFC.
 
 ### Ajustes e melhorias
@@ -21,17 +24,14 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] notificações
 - [x] configuração e instalação aws amazon
 - [x] otimização de dados e banco de dados
+- [x] Dashboard
 - [ ] Envio de e-mails e templates
-- [ ] Ajustar interfaces e usabilidade
-- [ ] Assinaturas eletronicas 
-- [ ] Dashboard com mais dados
-- [ ] Refatorar códigos críticos para mais eficiência
-- [ ] Implementar calendário para agendamentos
-- [ ] Controle de avaliação qualidade dos estágios
-- [ ] automação de tarefas de avaliação de estágios
-- [ ] Cadastro de Vagas
-- [ ] Area do professor
-- [ ] Area de Relatórios
+- [ ] Relatórios
+- [ ] Automação de notificações
+- [ ] Sistema automático de avaliações de estágios 
+- [ ] Implementar validações automaticas baseadas legislação  de estágio
+
+
 
 
 
