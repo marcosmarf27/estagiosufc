@@ -1,6 +1,7 @@
 <?php
 
 use Adianti\Control\TWindow;
+use Adianti\Registry\TSession;
 use Adianti\Widget\Form\TUniqueSearch;
 
 /**
@@ -30,9 +31,17 @@ class ListEstagioEmpresa extends TWindow
     {
         parent::__construct();
         parent::setSize(0.9, 0.9);
+       if(!empty($param['key'])){
+
+        TSession::setValue(__CLASS__.'estagios_concedente', $param['key']);
         $criteria = new TCriteria();
-        $criteria->add(new TFilter('concedente_id','=', $param['key']));
+        $criteria->add(new TFilter('concedente_id','=', TSession::getValue(__CLASS__.'estagios_concedente')));
         $this->setCriteria($criteria);
+
+        echo TSession::getValue(__CLASS__.'estagios_concedente');
+
+       }
+      
         
         $this->setDatabase('estagio');        // defines the database
         $this->setActiveRecord('Estagio');       // defines the active record
@@ -105,10 +114,10 @@ class ListEstagioEmpresa extends TWindow
     /**
      * Clear filters
      */
-    function clear()
+    function clear($param)
     {
         $this->clearFilters();
-        $this->onReload();
+        $this->onReload($param);
     }
 
     public function ajustarSituacao($value, $object, $row){
