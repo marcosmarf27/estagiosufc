@@ -135,7 +135,7 @@ class EstagioForm extends TPage
         $this->form->addFields( [ new TLabel('Tipo de Estágio') ],      [ $tipo_estagio_id ] );
         $this->form->addFields( [ new TLabel('Nº Seguro') ],      [ $apolice ], [ new TLabel('<b>Inicio do Apólice</b>') ],      [ $data_ini_a ], [ new TLabel('Fim do Apólice') ],      [ $data_fim_a ]  );
         $this->form->addFields( [ new TLabel('Auxílio Transporte (por mês)') ],      [ $valor_transporte ],    [ $editado ] );
-        $this->form->addFields( [ new TLabel('Tipo de Contraprestação') ],      [ $pagamento_id ], [ new TLabel('Valor da Bolsa R$') ],      [ $valor_bolsa ], [ new TLabel('Carga Horária (Horas)') ],      [ $carga_horaria ] );
+        $this->form->addFields( [ new TLabel('Tipo de Contraprestação') ],      [ $pagamento_id ], [ new TLabel('Valor da Bolsa R$') ],      [ $valor_bolsa ], [ new TLabel('Carga Horária (Semanal)') ],      [ $carga_horaria ] );
        
         
      
