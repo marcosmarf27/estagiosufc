@@ -1,9 +1,21 @@
 <?php
 
-use Adianti\Database\TTransaction;
-use Adianti\Widget\Form\TCombo;
+use Adianti\Control\TPage;
+use Adianti\Control\TAction;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TFile;
+use Adianti\Widget\Form\TCombo;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Container\TVBox;
+use Adianti\Widget\Form\THtmlEditor;
+use Adianti\Widget\Wrapper\TDBCombo;
+use Adianti\Validator\TEmailValidator;
+use Adianti\Widget\Util\TXMLBreadCrumb;
+use Adianti\Validator\TRequiredValidator;
+use Adianti\Wrapper\BootstrapFormBuilder;
+use Adianti\Widget\Template\THtmlRenderer;
 
 /**
  * StandardFormView Registration
@@ -63,7 +75,10 @@ class ConcedenteForm extends TPage
         $telefone     = new TEntry('telefone');
         $cnpj     = new TEntry('cnpj');
         $cnpj->setMask('99.999.999/9999-99');
+        $cpf     = new TEntry('cpf');
+        $cpf->setMask('999.999.999-99');
         $endereco     = new TEntry('endereco');
+        $origem     = new TEntry('origem');
         $arquivo     = new TFile('arquivo');
         $arquivo->enableFileHandling();
         $arquivo->enablePopover();
@@ -71,7 +86,8 @@ class ConcedenteForm extends TPage
         $pendencia = new THtmlEditor('pendencia');
         $pendencia->setSize('100%', 500);
         
-        
+        $tipo->setChangeAction(new TAction(array($this, 'onChangeType')));
+        self::onChangeType( ['_field_value' => '1'] );
      
 
 
@@ -82,7 +98,7 @@ class ConcedenteForm extends TPage
         $html = new THtmlRenderer('app/resources/tutor/template_pendencia.html');
         $html->enableSection('main', $replaces);
 
-  $teste = $html->getContents();
+        $teste = $html->getContents();
 
         $pendencia->setValue($teste);
         
@@ -103,7 +119,9 @@ class ConcedenteForm extends TPage
 
         $this->form->appendPage('Dados básicos');
         $this->form->addFields( [new TLabel('ID')], [$id],  [new TLabel('Situação')], [$situacao],  [new TLabel('Tipo')], [$tipo]);
-        $this->form->addFields( [new TLabel('Nome')], [$nome],  [new TLabel('CNPJ')], [$cnpj]  );
+        $this->form->addFields( [new TLabel('Nome')], [$nome],  [new TLabel('Origem')], [$origem]  );
+        $this->form->addFields( [new TLabel('<b>CPF</b>')], [$cpf] );
+        $this->form->addFields( [new TLabel('<b>CNPJ</b>')], [$cnpj] );
         $this->form->addFields( [new TLabel('E-mail')], [$email] );
         $this->form->addFields( [new TLabel('Telefone')], [$telefone] );
         $this->form->addFields( [new TLabel('Representante')], [$representante] );
@@ -185,5 +203,24 @@ class ConcedenteForm extends TPage
             new TMessage('error', $e->getMessage());
             TTransaction::rollback();
         }
+    }
+    public static function onChangeType($param)
+    {
+        if ($param['_field_value'] == '1' or $param['_field_value'] == '2')
+        {
+            TQuickForm::hideField('form_concedente_aluno', 'cpf');
+            TQuickForm::showField('form_concedente_aluno', 'cnpj');
+            
+           
+        }
+        else
+        {
+            TQuickForm::showField('form_concedente_aluno', 'cpf');
+            TQuickForm::hideField('form_concedente_aluno', 'cnpj');
+            
+         
+        }
+
+     
     }
 }
