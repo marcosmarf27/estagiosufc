@@ -275,6 +275,8 @@ class EstagioForm extends TPage
         $dia_semana->addValidation( 'Horários', new TRequiredValidator);
        
         $this->form->addAction( 'Salvar Termo', new TAction([$this, 'onSave'], [ 'static' => '1']), 'fa:save green' );
+       
+       
         parent::add($this->form);
      
     }

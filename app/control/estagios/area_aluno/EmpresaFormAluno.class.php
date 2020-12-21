@@ -15,7 +15,9 @@ use Adianti\Widget\Wrapper\TDBCombo;
 use Adianti\Validator\TEmailValidator;
 use Adianti\Widget\Util\TXMLBreadCrumb;
 use Adianti\Validator\TRequiredValidator;
+use Adianti\Widget\Container\TPanelGroup;
 use Adianti\Wrapper\BootstrapFormBuilder;
+use Adianti\Widget\Template\THtmlRenderer;
 
 /**
  * StandardFormView Registration
@@ -71,12 +73,14 @@ class EmpresaFormAluno extends TPage
         $telefone     = new TEntry('telefone');
         $endereco     = new TEntry('endereco');
         $arquivo     = new TFile('arquivo');
+        $arquivo->setTip('Anexe um único PDF contendo todos documentos necessários');
         $cnpj     = new TEntry('cnpj');
         $cpf     = new TEntry('cpf');
         $cnpj->setMask('99.999.999/9999-99');
         $cpf->setMask('999.999.999-99');
         $arquivo->enableFileHandling();
         $arquivo->enablePopover();
+        $arquivo->setAllowedExtensions( ['pdf'] );
 
         $tipo->setChangeAction(new TAction(array($this, 'onChangeType')));
         self::onChangeType( ['_field_value' => '1'] );
@@ -128,12 +132,19 @@ class EmpresaFormAluno extends TPage
         // define the form action
         $this->form->addAction('Salvar', new TAction(array($this, 'onSave')), 'fa:save green');
         $this->form->addActionLink('Limpar',  new TAction(array($this, 'onClear')), 'fa:eraser red');
+         
+        $html1 = new THtmlRenderer('app/resources/instrucoesconvenio.html');
+        $html1->disableHtmlConversion();
+        $html1->enableSection('main', array());
        
+        $panel1 = new TPanelGroup('INSTRUÇÕES E INFORMAÇÕES IMPORTANTES SOBRE CONVÊNIO');
+        $panel1->add($html1);
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
-        $vbox->add(new TXMLBreadCrumb('menu.xml', 'ConcedenteList'));
+        
         $vbox->add($this->form);
+        $vbox->add($panel1);
         parent::add($vbox);
     }
 
