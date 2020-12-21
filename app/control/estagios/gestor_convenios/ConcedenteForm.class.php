@@ -208,15 +208,15 @@ class ConcedenteForm extends TPage
     {
         if ($param['_field_value'] == '1' or $param['_field_value'] == '2')
         {
-            TQuickForm::hideField('form_concedente_aluno', 'cpf');
-            TQuickForm::showField('form_concedente_aluno', 'cnpj');
+            TQuickForm::hideField('form_concedente', 'cpf');
+            TQuickForm::showField('form_concedente', 'cnpj');
             
            
         }
         else
         {
-            TQuickForm::showField('form_concedente_aluno', 'cpf');
-            TQuickForm::hideField('form_concedente_aluno', 'cnpj');
+            TQuickForm::showField('form_concedente', 'cpf');
+            TQuickForm::hideField('form_concedente', 'cnpj');
             
          
         }
