@@ -1,8 +1,22 @@
 <?php
 
+use Adianti\Control\TAction;
 use Adianti\Control\TWindow;
+use Adianti\Database\TFilter;
 use Adianti\Registry\TSession;
+use Adianti\Database\TCriteria;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Widget\Base\TElement;
+use Adianti\Widget\Container\TVBox;
+use Adianti\Widget\Datagrid\TDataGrid;
 use Adianti\Widget\Form\TUniqueSearch;
+use Adianti\Widget\Util\TXMLBreadCrumb;
+use Adianti\Widget\Container\TPanelGroup;
+use Adianti\Wrapper\BootstrapFormBuilder;
+use Adianti\Widget\Wrapper\TDBUniqueSearch;
+use Adianti\Widget\Datagrid\TDataGridColumn;
+use Adianti\Widget\Datagrid\TPageNavigation;
+use Adianti\Wrapper\BootstrapDatagridWrapper;
 
 /**
  * StandardDataGridView Listing
@@ -33,19 +47,28 @@ class ListEstagioEmpresa extends TWindow
         parent::setSize(0.9, 0.9);
        if(!empty($param['key'])){
 
-        TSession::setValue(__CLASS__.'estagios_concedente', $param['key']);
+         TSession::setValue(__CLASS__.'estagios_concedente', $param['key']);
         $criteria = new TCriteria();
         $criteria->add(new TFilter('concedente_id','=', TSession::getValue(__CLASS__.'estagios_concedente')));
-        $this->setCriteria($criteria);
+        $this->setCriteria($criteria); 
 
-        echo TSession::getValue(__CLASS__.'estagios_concedente');
+       
+      
+
+       
 
        }
+
+       $criteria = new TCriteria();
+       $criteria->add(new TFilter('concedente_id','=', TSession::getValue(__CLASS__.'estagios_concedente')));
+       $this->setCriteria($criteria); 
+
+        
       
         
         $this->setDatabase('estagio');        // defines the database
         $this->setActiveRecord('Estagio');       // defines the active record
-        $this->addFilterField('aluno_id', 'like', 'aluno_id'); // filter field, operator, form field
+        $this->addFilterField('aluno_id', '=', 'aluno_id'); // filter field, operator, form field
         $this->setDefaultOrder('id', 'asc');  // define the default order
         
         // creates the form
@@ -99,6 +122,7 @@ class ListEstagioEmpresa extends TWindow
         // creates the page navigation
         $this->pageNavigation = new TPageNavigation;
         $this->pageNavigation->setAction(new TAction(array($this, 'onReload')));
+        $this->pageNavigation->enableCounters();
         
         // creates the page structure using a table
         $vbox = new TVBox;
