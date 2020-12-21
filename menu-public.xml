@@ -9,10 +9,7 @@
                 <icon></icon>
                 <action>EmpresaFormAluno</action>
             </menuitem>
-             <menuitem label='Estatísticas'>
-                <icon></icon>
-                <action>EstagiosDados</action>
-            </menuitem>
+        
            
         </menu>
     </menuitem>
