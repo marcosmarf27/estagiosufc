@@ -68,14 +68,14 @@ class ConvenioList extends TPage
         
         // creates the datagrid columns
        // $col_id    = new TDataGridColumn('id', 'Id', 'right', '5%');
-        $col_name  = new TDataGridColumn('nome', 'Nome', 'left', '30%');
-        $col_situacao  = new TDataGridColumn('situacao', 'Situação', 'left', '25%');
+        $col_name  = new TDataGridColumn('nome', 'Nome', 'left', '25%');
+        $col_situacao  = new TDataGridColumn('situacao', 'Situação', 'left', '10%');
         $cnpj= new TDataGridColumn('cnpj', 'cnpj', 'left', '15%');
         $cpf= new TDataGridColumn('cpf', 'CPF', 'left', '15%');
-        $col_email  = new TDataGridColumn('email', 'E-mail', 'left', '15%');
-        $convenio = new TDataGridColumn('n_convenio', 'nº processo', 'center', '15%');
-        $validade_ini = new TDataGridColumn('validade_ini', 'Inicio Vigência', 'center', '15%');
-        $validade_fim = new TDataGridColumn('validade_fim', 'Fim da Vigência', 'center', '15%');
+        $tipo  = new TDataGridColumn('tipo', 'Categoria', 'left', '15%');
+        $convenio = new TDataGridColumn('n_convenio', 'nº processo', 'center', '10%');
+        $validade_ini = new TDataGridColumn('validade_ini', 'Inicio Vigência', 'center', '10%');
+        $validade_fim = new TDataGridColumn('validade_fim', 'Fim da Vigência', 'center', '10%');
        
         
        // $this->datagrid->addColumn($col_id);
@@ -83,6 +83,7 @@ class ConvenioList extends TPage
         $this->datagrid->addColumn($col_situacao);
         $this->datagrid->addColumn($cnpj);
         $this->datagrid->addColumn($cpf);
+        $this->datagrid->addColumn($tipo);
         $this->datagrid->addColumn($validade_ini);
         $this->datagrid->addColumn($validade_fim);
         $this->datagrid->addColumn($convenio);
