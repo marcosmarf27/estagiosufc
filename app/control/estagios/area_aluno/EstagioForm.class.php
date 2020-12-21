@@ -556,7 +556,16 @@ class EstagioForm extends TPage
 
             
             $this->documentos->addHeader();
-            $this->documentos->addDetail( new stdClass );
+            $dados = new stdClass;
+            $dados->tipo_doc = 1;
+            $this->documentos->addDetail( $dados );
+            $dados = new stdClass;
+            $dados->tipo_doc = 6;
+            $this->documentos->addDetail( $dados );
+            $dados = new stdClass;
+            $dados->tipo_doc = 7;
+            $this->documentos->addDetail( $dados );
+
             $this->documentos->addCloneAction();
 
    
