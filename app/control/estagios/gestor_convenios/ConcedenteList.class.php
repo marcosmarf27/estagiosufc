@@ -55,7 +55,7 @@ class ConcedenteList extends TPage
         
         $nome = new TEntry('nome');
         $situacao = new TCombo('situacao');
-        $situacao->addItems(['1' => 'Não conveniada', '2' => 'Conveniada', '3' => 'Processando', '4' => 'Com problemas']);
+        $situacao->addItems(['1' => 'Não conveniada', '2' => 'Conveniada', '3' => 'Processando', '4' => 'Com problemas', '5'=> 'Na procuradoria']);
         $this->form->addFields( [new TLabel('Name:')], [$nome], [new TLabel('Situação:')], [$situacao] );
         
         
