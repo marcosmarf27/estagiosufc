@@ -76,8 +76,8 @@ class ConvenioList extends TPage
         $convenio = new TDataGridColumn('n_convenio', 'Nº PROCESSO', 'center', '10%');
         $validade_ini = new TDataGridColumn('validade_ini', 'INICIO VIGÊNCIA', 'center', '15%');
 
-        $data_envio = new TDataGridColumn('criacao', 'ENVIADO EM', 'center', '15%');
-        $atualizacao = new TDataGridColumn('atualizacao', 'MOVIMENTADO EM', 'center', '15%');
+        //$data_envio = new TDataGridColumn('criacao', 'ENVIADO EM', 'center', '15%');
+//$atualizacao = new TDataGridColumn('atualizacao', 'MOVIMENTADO EM', 'center', '15%');
        
        
         
@@ -87,8 +87,8 @@ class ConvenioList extends TPage
         $this->datagrid->addColumn($cnpj);
        
        // $this->datagrid->addColumn($tipo);
-       $this->datagrid->addColumn($atualizacao);
-       $this->datagrid->addColumn($data_envio);
+     //  $this->datagrid->addColumn($atualizacao);
+       //$this->datagrid->addColumn($data_envio);
         $this->datagrid->addColumn($validade_ini);
         
         $this->datagrid->addColumn($convenio);
