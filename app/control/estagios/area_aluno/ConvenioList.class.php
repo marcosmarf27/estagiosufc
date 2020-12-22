@@ -96,8 +96,13 @@ class ConvenioList extends TPage
         $col_situacao->setTransformer(array($this, 'Ajustar'));
 
         $validade_ini->setTransformer( function($value) {
-            $date = new DateTime($value);
-            return $date->format('d/m/Y');
+            if(!empty($value)){
+                $date = new DateTime($value);
+                return $date->format('d/m/Y');
+            }else{
+                 return '';
+            }
+         
         });
         $atualizacao->setTransformer( function($value) {
             $date = new DateTime($value);
