@@ -456,7 +456,7 @@ class EstagioForm extends TPage
                         
                        
                         $action = new TAction(array('EstagioListAluno', 'onReload'));
-                        new TMessage('info', 'Estágio salvo com Sucesso, clique para ver seu estágio!', $action);
+                        new TMessage('info', 'Estágio salvo com Sucesso! <b>Estamos processando sua solicitação</b>, clique "ok" para ver seu estágio!', $action);
                        
                         
                         TTransaction::close(); // close the transaction */

@@ -182,12 +182,13 @@ class EmpresaFormAluno extends TPage
             SystemNotification::register(1, 'Novo convênio recebido', 'Avaliar Convênio', 'class=ConcedenteList', 'Avaliar', 'fas fa-user-tie');
             
             TTransaction::close();
+
       
-  
+            $action = new TAction(array('ConvenioList', 'onReload'));
+            new TMessage('info', 'Recebemos sua solicitação e estamos <b>processando</b>!, clique "ok" para acompanhar as solicitações.', $action);
    
     
     // shows the question dialog
-    new TMessage('info', 'Empresa cadastrada com sucesso!');
         }
         catch (Exception $e)
         {
