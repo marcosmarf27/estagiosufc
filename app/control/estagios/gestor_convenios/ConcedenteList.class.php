@@ -86,7 +86,7 @@ class ConcedenteList extends TPage
         $this->datagrid->addColumn($col_situacao);
         $this->datagrid->addColumn($convenio);
         $this->datagrid->addColumn($criacao);
-    //  $this->datagrid->addColumn($cidade);
+        $this->datagrid->addColumn($ultima);
 
       $col_situacao->setTransformer(array($this, 'Ajustar'));
      
