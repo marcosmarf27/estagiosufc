@@ -4,6 +4,7 @@ use Adianti\Control\TPage;
 use Adianti\Control\TAction;
 use Adianti\Control\TWindow;
 use Adianti\Database\TTransaction;
+use Adianti\Registry\TSession;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TLabel;
@@ -15,6 +16,8 @@ use Adianti\Widget\Wrapper\TDBCombo;
 use Adianti\Widget\Util\TXMLBreadCrumb;
 use Adianti\Validator\TRequiredValidator;
 use Adianti\Wrapper\BootstrapFormBuilder;
+use Dompdf\FrameDecorator\Text;
+
 /**
  * StandardFormView Registration
  *
@@ -37,7 +40,7 @@ class NotificaForm extends TWindow
      * Class constructor
      * Creates the page and the registration form
      */
-    function __construct($param)
+    function __construct()
     {
      
         parent::__construct();
@@ -75,26 +78,16 @@ class NotificaForm extends TWindow
         
 
         
-        if($param)
-        {
-            $dados = new stdClass;
-            $dados->para = $param['email'];
-            $dados->assunto = 'Notificação importante - Central de Estágios UFC';
-            $dados->conteudo = $param['pendencia'];
-            $dados->data_envio = date('Y-m-d');
-            $dados->de = 'Central de Estágios';
-            $dados->convenio_id = $param['key'];
-
-            $this->form->setData($dados);
-        }
+      
        
-
+        ;
+       // $this->form->setData(TSession::getValue('dadosEmail'));
         
      
         
         // define the form action
         $this->form->addAction('Enviar e-mail', new TAction(array($this, 'enviarEmail')), 'fa:envelope green');
-        $this->form->addActionLink('Clear',  new TAction(array($this, 'onClear')), 'fa:eraser red');
+       // $this->form->addActionLink('Clear',  new TAction(array($this, 'onClear')), 'fa:eraser red');
         
         // wrap the page content using vertical box
         $vbox = new TVBox;
@@ -106,14 +99,17 @@ class NotificaForm extends TWindow
 
     public function enviarEmail($param){
 
-        $dados = $this->form->getData();
+        $dados = TSession::getValue('dadosEmail');
+        $dadosAtivos = $this->form->getData();
+        $dados->conteudo = $dadosAtivos->conteudo;
+        
         MailService::send( $dados->para, $dados->assunto, $dados->conteudo, 'html' );
        
         TTransaction::open('estagio');
         $email = new Email;
-        $email->fromArray($dados);
+        $email->fromArray((array)$dados);
         $email->store();
-
+        $this->form->setData($dados);
         TTransaction::close();
 
         new TMessage('info', 'E-mail enviado com sucesso');
@@ -122,7 +118,24 @@ class NotificaForm extends TWindow
 
 
     }
-    public function notificar(){
+    public function notificar($param){
+
+        if($param)
+        {
+          
+           
+            $dados = new stdClass;
+            $dados->para = $param['email'];
+            $dados->assunto = 'Notificação importante - Central de Estágios UFC';
+            $dados->conteudo = $param['pendencia'];
+            $dados->data_envio = date('Y-m-d');
+            $dados->de = 'Central de Estágios';
+            $dados->convenio_id = $param['id'];
+           
+            TSession::setValue('dadosEmail', $dados);
+
+            $this->form->setData($dados);
+        }
         
     }
 }
