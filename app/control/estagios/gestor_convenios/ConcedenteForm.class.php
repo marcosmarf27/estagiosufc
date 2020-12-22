@@ -91,16 +91,7 @@ class ConcedenteForm extends TPage
      
 
 
-        $replaces = [];
-      
-     
-
-        $html = new THtmlRenderer('app/resources/tutor/template_pendencia.html');
-        $html->enableSection('main', $replaces);
-
-        $teste = $html->getContents();
-
-        $pendencia->setValue($teste);
+        
         
 
         $telefone->setMask('(99)99999-9999');
@@ -154,6 +145,7 @@ class ConcedenteForm extends TPage
         $this->form->addAction('Salvar', new TAction(array($this, 'onSave')), 'fa:save green');
         $this->form->addActionLink('Limpar',  new TAction(array($this, 'onClear')), 'fa:eraser red');
         $this->form->addActionLink('Listar Empresas',  new TAction(array('ConcedenteList', 'onReload')), 'fa:table blue');
+        $this->form->addAction('Notificar Empresa', new TAction(array('NotificaForm', 'notificar')), 'fa:envelope blue');
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
@@ -222,5 +214,29 @@ class ConcedenteForm extends TPage
         }
 
      
+    }
+
+    public function onEdit($param){
+
+        TTransaction::open('estagio');
+        
+        $dados = new Concedente($param['key']);
+        $replaces = [];
+        $replaces['nome'] = $dados->nome;
+        $replaces['cnpj'] = $dados->cnpj;
+       
+        $html = new THtmlRenderer('app/resources/tutor/template_pendencia.html');
+        $html->enableSection('main', $replaces);
+        $template = $html->getContents();
+        $dados->pendencia = $template;
+      
+     
+
+
+
+        $this->form->setData($dados);
+
+        TTransaction::close();
+
     }
 }
