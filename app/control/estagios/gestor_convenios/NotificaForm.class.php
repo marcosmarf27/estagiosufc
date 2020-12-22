@@ -107,7 +107,11 @@ class NotificaForm extends TWindow
     public static function enviarEmail($param){
 
        
+        echo "<pre>";
+
+        print_r($param);
         
+        echo "</pre>";
         MailService::send( $param['para'], $param['assunto'], $param['conteudo'], 'html' );
        
         TTransaction::open('estagio');
