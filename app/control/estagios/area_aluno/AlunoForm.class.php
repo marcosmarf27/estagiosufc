@@ -76,7 +76,7 @@ class AlunoForm extends TPage
         $this->form->addFields( [new TLabel('Nome')], [$nome], [new TLabel('Matricula')], [$matricula] );
         $this->form->addFields( [new TLabel('Cidade')], [$cidade_id], [new TLabel('Curso')], [$curso_id] );
         $this->form->addFields( [new TLabel('E-mail')], [$email] );
-        $this->form->addFields( [new TLabel('Telefone')], [$telefone] );
+        $this->form->addFields( [new TLabel('Telefone/Whatsapp')], [$telefone] );
         $this->form->addFields( [new TLabel('Endereço')], [$endereco] );
         $this->form->addFields( [$status] );
         $this->form->addFields(  [$system_user_id] );

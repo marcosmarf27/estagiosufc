@@ -65,7 +65,7 @@ class EmpresaFormAluno extends TPage
      
        
         $tipo = new TCombo('tipo');
-        $tipo->addItems(['1' => 'Empresa/Instituição', '2'=> 'Projeto de Extensão' ,'3' => 'Profissional único']);
+        $tipo->addItems(['1' => 'Empresa/Instituição', '2'=> 'Projeto de Extensão' ,'3' => 'Profissional Autônomo']);
         $cidade_id = new TDBCombo('cidade_id', 'estagio', 'Cidade', 'id', 'nome');
         $cidade_id->enableSearch();
         $representante     = new TEntry('representante');
@@ -109,8 +109,8 @@ class EmpresaFormAluno extends TPage
 
         $this->form->appendPage('Dados básicos');
         $this->form->addFields( [$id]);
-        $this->form->addFields( [new TLabel('Nome')], [$nome],  [new TLabel('Tipo')], [$tipo] );
-        $this->form->addFields( [new TLabel('E-mail')], [$email], [new TLabel('Telefone')], [$telefone] );
+        $this->form->addFields( [new TLabel('Empresa Interessada')], [$nome],  [new TLabel('Categoria')], [$tipo] );
+        $this->form->addFields( [new TLabel('E-mail')], [$email], [new TLabel('Telefone/Whatsapp')], [$telefone] );
         $this->form->addFields( [new TLabel('<b>CPF</b>')], [$cpf] );
         $this->form->addFields( [new TLabel('<b>CNPJ</b>')], [$cnpj] );
         $this->form->addFields( [new TLabel('Representante')], [$representante] );
