@@ -56,7 +56,7 @@ class EmailList extends TPage
         
         // create the form
         $this->form = new BootstrapFormBuilder('form_emaillist');
-        $this->form->setFormTitle('E-mails enviados');
+        
         
         // create the form fields
         $id     = new TEntry('id');
