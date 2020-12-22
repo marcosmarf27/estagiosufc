@@ -65,7 +65,7 @@ class ConcedenteForm extends TPage
         $validade_fim->setMask('dd/mm/yyyy');
         $validade_fim->setDatabaseMask('yyyy-mm-dd');
         $situacao = new TCombo('situacao');
-        $situacao->addItems(['1' => 'Não conveniada', '2' => 'Conveniada', '3' => 'Processando', '4' => 'Com problemas']);
+        $situacao->addItems(['1' => 'Não conveniada', '2' => 'Conveniada', '3' => 'Processando', '4' => 'Com problemas', '5' => 'Na Procuradoria']);
         $tipo = new TCombo('tipo');
         $tipo->addItems(['1' => 'Empresa/Instituição', '2' => 'Projeto/Bolsa', '3' => 'Profissional único']);
         $cidade_id = new TDBCombo('cidade_id', 'estagio', 'Cidade', 'id', 'nome');
@@ -133,7 +133,7 @@ class ConcedenteForm extends TPage
 
         $this->form->addFields( [new TLabel('Avaliação procuradoria')], [$pendencia] );
      
-   
+        
 
       
        
@@ -221,20 +221,31 @@ class ConcedenteForm extends TPage
         TTransaction::open('estagio');
         
         $dados = new Concedente($param['key']);
-        $replaces = [];
-        $replaces['nome'] = $dados->nome;
-        $replaces['cnpj'] = $dados->cnpj;
-       
-        $html = new THtmlRenderer('app/resources/tutor/template_pendencia.html');
-        $html->enableSection('main', $replaces);
-        $template = $html->getContents();
-        $dados->pendencia = $template;
+
+        if($dados->situacao == '3'){
+            
+            $replaces = [];
+            $replaces['nome'] = $dados->nome;
+            $replaces['cnpj'] = $dados->cnpj;
+           
+            $html = new THtmlRenderer('app/resources/tutor/template_pendencia.html');
+            $html->enableSection('main', $replaces);
+            $template = $html->getContents();
+            $dados->pendencia = $template;
+            
+            $this->form->setData($dados);
+
+        }else{
+            
+          
+            $this->form->setData($dados);
+        }
+      
       
      
 
 
 
-        $this->form->setData($dados);
 
         TTransaction::close();
 
