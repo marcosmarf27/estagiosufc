@@ -17,6 +17,7 @@ use Adianti\Widget\Dialog\TQuestion;
 use Adianti\Widget\Datagrid\TDataGrid;
 use Adianti\Widget\Util\TXMLBreadCrumb;
 use Adianti\Core\AdiantiCoreApplication;
+use Adianti\Widget\Template\THtmlRenderer;
 use Adianti\Widget\Datagrid\TDataGridAction;
 use Adianti\Widget\Datagrid\TDataGridColumn;
 use Adianti\Widget\Datagrid\TPageNavigation;
@@ -440,24 +441,42 @@ public function carregar(){
 public function aprovarTermo($param){
 
     TTransaction::open('estagio');
-     
-
-
-
     $estagio = Estagio::find($param['id']);
     $estagio->situacao = '2';
     $estagio->store();
+    
+    $replaces = [];
+    $replaces['nome'] = $estagio->nome;
+    $replaces['matricula'] = $estagio->aluno->matricula;
+    $replaces['concedente'] = $estagio->concedente->nome;
+    
+   
+    $html = new THtmlRenderer('app/resources/tutor/termo_aprovado.html');
+    $html->enableSection('main', $replaces);
+    $email = $html->getContents();
+   //envia mensagem com conteudo email
+    $mensagem = new SystemMessage;
+    $mensagem->system_user_id = 1;
+    $mensagem->system_user_to_id = $estagio->aluno->system_user_id;
+    $mensagem->subject = 'Termo de Estágio Aprovado';
+    $mensagem->message = $email;
+    $mensagem->dt_message = date('Y-m-d');
+    //envia email tambem
+    MailService::send( $estagio->aluno->email, 'Termo de Estágio aprovado', $email, 'html' );
+
+
+
  
 
  
     TTransaction::close();
-    $action1 = new TAction(array($this, 'onReload'));
-   
-   
     
-    // shows the question dialog
+    
+    
+    $action1 = new TAction(array($this, 'onReload'));
     new TMessage('info', 'Termo
     de estágio aprovado', $action1);
+    // shows the question dialog
 
 
    }
