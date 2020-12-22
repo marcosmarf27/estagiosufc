@@ -191,6 +191,11 @@ class DocumentoFormListAluno extends TPage
         
            
         });
+
+        $col_data_envio->setTransformer( function($value, $object, $row) {
+            $date = new DateTime($value);
+            return $date->format('d/m/Y');
+        });
         
         // define row actions
        // $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{id}'] );

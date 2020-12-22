@@ -26,6 +26,10 @@ class AlunoFormWindow extends TWindow
     function __construct()
     {
         parent::__construct();
+        parent::setSize(0.8, null);
+        parent::removePadding();
+        parent::setTitle('Informações Aluno');
+        parent::disableEscape();
         
         $this->setDatabase('estagio');    // defines the database
         $this->setActiveRecord('Aluno');   // defines the active record
@@ -33,7 +37,7 @@ class AlunoFormWindow extends TWindow
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_aluno');
-        $this->form->setFormTitle('Cadastro de aluno');
+    
         $this->form->setClientValidation(true);
         
         
@@ -80,7 +84,7 @@ class AlunoFormWindow extends TWindow
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
-        $vbox->add(new TXMLBreadCrumb('menu.xml', 'AlunoList'));
+      
         $vbox->add($this->form);
         parent::add($vbox);
     }

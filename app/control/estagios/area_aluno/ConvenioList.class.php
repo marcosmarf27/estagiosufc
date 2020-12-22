@@ -88,7 +88,16 @@ class ConvenioList extends TPage
         $this->datagrid->addColumn($validade_fim);
         $this->datagrid->addColumn($convenio);
 
-      $col_situacao->setTransformer(array($this, 'Ajustar'));
+        $col_situacao->setTransformer(array($this, 'Ajustar'));
+
+        $validade_ini->setTransformer( function($value) {
+            $date = new DateTime($value);
+            return $date->format('d/m/Y');
+        });
+        $validade_fim->setTransformer( function($value) {
+            $date = new DateTime($value);
+            return $date->format('d/m/Y');
+        });
      
        
         
@@ -98,6 +107,7 @@ class ConvenioList extends TPage
         // creates the page navigation
         $this->pageNavigation = new TPageNavigation;
         $this->pageNavigation->setAction(new TAction(array($this, 'onReload')));
+        $this->pageNavigation->enableCounters();
         
         // creates the page structure using a table
         $vbox = new TVBox;

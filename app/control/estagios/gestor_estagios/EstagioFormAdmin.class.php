@@ -2,13 +2,19 @@
 
 use Adianti\Control\TAction;
 use Adianti\Control\TWindow;
-use Adianti\Database\TTransaction;
 use Adianti\Registry\TSession;
-use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Form\TDate;
-use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TFile;
 use Adianti\Widget\Form\TText;
+use Adianti\Widget\Form\TCombo;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Form\TFieldList;
+use Adianti\Widget\Wrapper\TDBCombo;
+use Adianti\Wrapper\BootstrapFormBuilder;
+use Adianti\Widget\Wrapper\TDBUniqueSearch;
 
 /**
  * CustomerFormView
@@ -34,33 +40,34 @@ class EstagioFormAdmin extends TWindow
         parent::__construct();
         parent::setSize(0.8, null);
         parent::removePadding();
-      
+        parent::setTitle('Termo de Estágio');
         parent::disableEscape();
+      
         
         
      
         $this->form = new BootstrapFormBuilder('form_estagio');
-        $this->form->setFormTitle('Cadastro de Estágios');
-        $this->form->setClientValidation(true);
+       
+      
         
-        $code        = new TEntry('id');
-        $aluno_id    = new TDBUniqueSearch('aluno_id', 'estagio', 'Aluno', 'id', 'nome');
-        $concedente_id    = new TDBUniqueSearch('concedente_id', 'estagio', 'Concedente', 'id', 'nome');
+        $code            = new TEntry('id');
+        $aluno_id        = new TDBUniqueSearch('aluno_id', 'estagio', 'Aluno', 'id', 'nome');
+        $concedente_id   = new TDBUniqueSearch('concedente_id', 'estagio', 'Concedente', 'id', 'nome');
         $professor_id    = new TDBUniqueSearch('professor_id', 'estagio', 'Professor', 'id', 'nome');
         $tipo_estagio_id = new TDBCombo('tipo_estagio_id', 'estagio', 'Tipo', 'id', 'nome');
-        $apolice      = new TEntry('apolice');
-        $data_ini_a  = new TDate('data_ini_a');
-        $data_fim_a   = new TDate('data_fim_a');
-        $valor_transporte      = new TEntry('valor_transporte');
-        $data_ini  = new TDate('data_ini');
-        $data_fim   = new TDate('data_fim');
-        $pagamento_id = new TDBCombo('pagamento_id', 'estagio', 'Pagamento', 'id', 'nome');
-        $atividades = new TText('atividades');
+        $apolice         = new TEntry('apolice');
+        $data_ini_a      = new TDate('data_ini_a');
+        $data_fim_a      = new TDate('data_fim_a');
+        $valor_transporte = new TEntry('valor_transporte');
+        $data_ini        = new TDate('data_ini');
+        $data_fim        = new TDate('data_fim');
+        $pagamento_id    = new TDBCombo('pagamento_id', 'estagio', 'Pagamento', 'id', 'nome');
+        $atividades      = new TText('atividades');
         $atividades->placeholder =' Descreva aqui todas atividades que serão executadas no estágio';
-        $carga_horaria       = new TEntry('carga_horaria');
-        $ano       = new TEntry('ano');
-        $mes       = new TEntry('mes');
-        $valor_bolsa       = new TEntry('valor_bolsa');
+        $carga_horaria   = new TEntry('carga_horaria');
+        $ano             = new TEntry('ano');
+        $mes             = new TEntry('mes');
+        $valor_bolsa     = new TEntry('valor_bolsa');
 
         
         

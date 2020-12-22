@@ -187,6 +187,12 @@ class EntregaDocumentoAluno extends TPage
             return $b2;
 
         });
+
+        $col_data_envio->setTransformer( function($value) {
+            $date = new DateTime($value);
+            return $date->format('d/m/Y');
+        });
+        
         
            $this->datagrid->createModel();
            

@@ -1,9 +1,31 @@
 <?php
 
-use Adianti\Database\TTransaction;
+
+use Adianti\Control\TPage;
+use Adianti\Control\TAction;
+use Adianti\Database\TFilter;
 use Adianti\Registry\TSession;
-use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Form\TDate;
+use Adianti\Database\TCriteria;
 use Adianti\Widget\Form\TCombo;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Widget\Base\TScript;
+use Adianti\Widget\Base\TElement;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Container\TVBox;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Datagrid\TDataGrid;
+use Adianti\Widget\Util\TXMLBreadCrumb;
+use Adianti\Core\AdiantiCoreApplication;
+use Adianti\Wrapper\BootstrapFormBuilder;
+use Adianti\Widget\Template\THtmlRenderer;
+use Adianti\Widget\Wrapper\TDBUniqueSearch;
+use Adianti\Widget\Datagrid\TDataGridAction;
+use Adianti\Widget\Datagrid\TDataGridColumn;
+use Adianti\Widget\Datagrid\TPageNavigation;
+use Adianti\Wrapper\BootstrapDatagridWrapper;
+use Adianti\Widget\Datagrid\TDataGridActionGroup;
 
 /**
  * SaleList
@@ -23,9 +45,7 @@ class EstagioList extends TPage
     
     use Adianti\Base\AdiantiStandardListTrait;
     
-    /**
-     * Page constructor
-     */
+   
     public function __construct($param)
     {
         parent::__construct();
@@ -104,33 +124,26 @@ class EstagioList extends TPage
      
         
         // creates the datagrid columns
-        $column_id       = new TDataGridColumn('id', 'nº Estágio', 'center', '5%');
+        $column_id          = new TDataGridColumn('id', 'nº Estágio', 'center', '5%');
         $column_situacao    = new TDataGridColumn('situacao', 'Status', 'center', '20%');
-        $column_aluno = new TDataGridColumn('aluno->nome', 'Aluno', 'left', '25%');
-        $column_concedente = new TDataGridColumn('concedente->nome', 'Empresa/Instituição', 'left', '25%');
-        $column_data_ini     = new TDataGridColumn('data_ini', 'Data Inicio', 'center', '15%');
+        $column_aluno       = new TDataGridColumn('aluno->nome', 'Aluno', 'left', '25%');
+        $column_concedente  = new TDataGridColumn('concedente->nome', 'Empresa/Instituição', 'left', '25%');
+        $column_data_ini    = new TDataGridColumn('data_ini', 'Data Inicio', 'center', '15%');
         $column_data_fim    = new TDataGridColumn('data_fim', 'Data Término', 'center', '15%');
        
-       // $column_total    = new TDataGridColumn('total', 'Total', 'right', '20%');
+       
         
-        // define format function
-        $format_value = function($value) {
-            if (is_numeric($value)) {
-                return 'R$ '.number_format($value, 2, ',', '.');
-            }
-            return $value;
-        };
-        
-      //  $column_total->setTransformer( $format_value );
+      
         
         // add the columns to the DataGrid
         $this->datagrid->addColumn($column_id);
         $this->datagrid->addColumn($column_situacao);
-        $this->datagrid->addColumn($column_concedente);
         $this->datagrid->addColumn($column_aluno);
-     
+        $this->datagrid->addColumn($column_concedente);
         $this->datagrid->addColumn($column_data_ini);
         $this->datagrid->addColumn($column_data_fim);
+        
+     
        
 
         //Transformação que define a situação do estagio 
@@ -149,17 +162,17 @@ class EstagioList extends TPage
             $date = new DateTime($value);
             return $date->format('d/m/Y');
         });
-
-       // $action_view   = new TDataGridAction(['SaleSidePanelView', 'onView'],   ['key' => '{id}', 'register_state' => 'false'] );
+        //ações
         $action_edit   = new TDataGridAction(['EstagioFormAdmin', 'onEdit'],   ['key' => '{id}',  'register_state' => 'false', 'nome'=> 'marcos antonio rafael da fonseca ç']);
         $action_edit_a   = new TDataGridAction(['AlunoFormWindow', 'onEdit'],   ['id' => '{aluno_id}',  'register_state' => 'false']);
         $action_edit_c   = new TDataGridAction(['ConcedenteFormWindow', 'onEdit'],   ['id' => '{concedente_id}',  'register_state' => 'false']);
         $action_delete = new TDataGridAction([$this, 'onDelete'],   ['key' => '{id}'] );
         $action_aprovar = new TDataGridAction([$this, 'aprovarTermo'],   ['id' => '{id}'] );
-
         $action_registra_pendencia  = new TDataGridAction(['PendenciaFormList', 'registraPendencia'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}', 'register_state' => 'false']);
         $action_registra_documento  = new TDataGridAction(['DocumentoFormList', 'registraDocumento'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}']);
-        $action_edit->setLabel('Editar Termo');
+
+       //formataçao das ações
+        $action_edit->setLabel('Abrir termo');
         $action_edit->setImage('far:edit blue fa-fw');
 
         $action_aprovar->setLabel('Aprovar Termo');
@@ -199,18 +212,14 @@ class EstagioList extends TPage
         $this->datagrid->addActionGroup($action_group);
         
         
-     /*    //$this->datagrid->addAction($action_view, _t('View details'), 'fa:search green fa-fw');
-        $this->datagrid->addAction($action_edit, 'Editar Termo',   'far:edit blue fa-fw');
-        $this->datagrid->addAction($action_delete, 'Deletar Termo', 'far:trash-alt red fa-fw');
-        $this->datagrid->addAction($action_edit_a, 'Cadastro Aluno',   'far:user blue fa-fw');
-        $this->datagrid->addAction($action_edit_c, 'Cadastro Empresa', 'fas:address-card blue fa-fw'); */
-        
+     
         // create the datagrid model
         $this->datagrid->createModel();
         
         // create the page navigation
         $this->pageNavigation = new TPageNavigation;
         $this->pageNavigation->setAction(new TAction([$this, 'onReload']));
+        $this->pageNavigation->enableCounters();
         
         // vertical box container
         $container = new TVBox;
@@ -224,11 +233,11 @@ class EstagioList extends TPage
 
     public  function Limpar($param)
     {
+        $this->form->clear();
+    }
 
        
-        $this->form->clear();
         
-    }
 
     public function abrir($param){
 
@@ -236,163 +245,170 @@ class EstagioList extends TPage
      
     }
 
-   public function ajustarSituacao($value, $object, $row){
+   public function ajustarSituacao($value, $object, $row)
+    {
 
-    $pendencias = Pendencia::where('estagio_id', '=', $object->id)->where('status', '=', 'N')->load();
+        $pendencias = Pendencia::where('estagio_id', '=', $object->id)->where('status', '=', 'N')->load();
 
-    if($pendencias){
+        if($pendencias)
+        {
         
-     TTransaction::open('estagio');
+        TTransaction::open('estagio');
      
-
-
-
-    $estagio = Estagio::find($object->id);
-    $estagio->situacao = '4';
-    $estagio->store();
-   
-
+        $estagio = Estagio::find($object->id);
+        $estagio->situacao = '4';
+        $estagio->store();
     
-    TTransaction::close();
+        TTransaction::close();
 
-   
-
- }
- if (!($pendencias) and $object->situacao == '4'){
-
-       
-    TTransaction::open('estagio');
-     
+        }
 
 
+        if (!($pendencias) and $object->situacao == '4')
+            {
 
-    $estagio = Estagio::find($object->id);
-    $estagio->situacao = '2';
-    $estagio->store();
-   
-
-    
-    TTransaction::close();
-
- }
-
-
-    
-   
-    
-
-    
-
-
-    switch ($object->situacao) {
-        case 1:
-            $div = new TElement('span');
-            $div->class="label label-primary";
-             $div->style="text-shadow:none; font-size:12px";
-            $div->add('Em Avaliação');
-            return $div;
-            break;
-        case 2:
-            $div = new TElement('span');
-            $div->class="label label-success";
-             $div->style="text-shadow:none; font-size:12px";
-            $div->add('Estágio Aprovado');
-            return $div;
-            break;
-
-            case 3:
-                $div = new TElement('span');
-                $div->class="label label-danger";
-                 $div->style="text-shadow:none; font-size:12px";
-                $div->add('Rescindido');
-                return $div;
-                break;
-
-                case 4:
-                    $div = new TElement('span');
-                    $div->class="label label-warning";
-                     $div->style="text-shadow:none; font-size:12px";
-                    $div->add('Estágio com problemas');
-                    return $div;
-                    break;
-
-                    case 5:
-                        $div = new TElement('span');
-                        $div->class="label label-danger";
-                         $div->style="text-shadow:none; font-size:12px";
-                        $div->add('Cancelado');
-                        return $div;
-                        break;
-         
-                
+        
+            TTransaction::open('estagio');
+            $estagio = Estagio::find($object->id);
+            $estagio->situacao = '2';
+            $estagio->store();
             
-     
+            TTransaction::close();
+
+            }
+   
+        switch ($object->situacao) 
+            {
+                   case 1:
+                       $div = new TElement('span');
+                       $div->class="label label-primary";
+                       $div->style="text-shadow:none; font-size:12px";
+                       $div->add('Em Avaliação');
+                       return $div;
+                       break;
+                   case 2:
+                       $div = new TElement('span');
+                       $div->class="label label-success";
+                       $div->style="text-shadow:none; font-size:12px";
+                       $div->add('Estágio Aprovado');
+                       return $div;
+                       break;
+           
+                   case 3:
+                       $div = new TElement('span');
+                       $div->class="label label-danger";
+                       $div->style="text-shadow:none; font-size:12px";
+                       $div->add('Rescindido');
+                       return $div;
+                       break;
+           
+                   case 4:
+                       $div = new TElement('span');
+                       $div->class="label label-warning";
+                       $div->style="text-shadow:none; font-size:12px";
+                       $div->add('Estágio com problemas');
+                       return $div;
+                       break;
+   
+                   case 5:
+                       $div = new TElement('span');
+                       $div->class="label label-danger";
+                       $div->style="text-shadow:none; font-size:12px";
+                       $div->add('Cancelado');
+                       return $div;
+                       break;
+                    
+                           
+                       
+                
+               }
+   
+               $this->carregar();
+           
+              
     }
 
-    $this->carregar();
+    
+    public static function onClosePanel($param)
+    {
+        TScript::create("Template.closeRightPanel()");
+    }
 
    
-   }
 
-   public static function onClosePanel($param)
-   {
-       TScript::create("Template.closeRightPanel()");
-   }
+        
+    public function carregar()
+    {
+ 
+         AdiantiCoreApplication::loadPage('EstagioList', 'onReload');
+ 
+    }
+    
 
-   public function carregar(){
 
-    AdiantiCoreApplication::loadPage('EstagioList', 'onReload');
-
-   }
-   
-   
-   
-   public function aprovarTermo($param){
-
-    TTransaction::open('estagio');
+    public function aprovarTermo($param)
+    {
+ 
+     TTransaction::open('estagio');
+      
+ 
+ 
+    // aprova o estágio
+     $estagio = Estagio::find($param['id']);
+     $estagio->situacao = '2';
+     $estagio->store();
+    //prepara o e-mail
+     $replaces = [];
+     $replaces['nome'] = $estagio->aluno->nome;
+     $replaces['matricula'] = $estagio->aluno->matricula;
+     $replaces['concedente'] = $estagio->concedente->nome;
+     $html = new THtmlRenderer('app/resources/tutor/termo_aprovado.html');
+     $html->enableSection('main', $replaces);
+     $email = $html->getContents();
      
+    
+    //envia mensagem 
+     $mensagem = new SystemMessage;
+     $mensagem->system_user_id = 1;
+     $mensagem->system_user_to_id = $estagio->aluno->system_user_id;
+     $mensagem->subject = 'Termo de Estágio Aprovado';
+     $mensagem->message = $email;
+     $mensagem->dt_message = date('Y-m-d');
+     $mensagem->checked = 'N';
+     $mensagem->store();
+     //envia email tambem
+     MailService::send( $estagio->aluno->email, 'Termo de Estágio aprovado', $email, 'html' );
+  
+ 
+  
+     TTransaction::close();
+     $action1 = new TAction(array($this, 'onReload'));
+     new TMessage('info', 'Termo de estágio aprovado', $action1);
+    
+    
+     
+     // shows the question dialog
+ 
+ 
+    }
+   
+
+    
 
 
-
-    $estagio = Estagio::find($param['id']);
-    $estagio->situacao = '2';
-    $estagio->store();
-
-    $replaces = [];
-    $replaces['nome'] = $estagio->aluno->nome;
-    $replaces['matricula'] = $estagio->aluno->matricula;
-    $replaces['concedente'] = $estagio->concedente->nome;
     
    
-    $html = new THtmlRenderer('app/resources/tutor/termo_aprovado.html');
-    $html->enableSection('main', $replaces);
-    $email = $html->getContents();
-   //envia mensagem com conteudo email
-    $mensagem = new SystemMessage;
-    $mensagem->system_user_id = 1;
-    $mensagem->system_user_to_id = $estagio->aluno->system_user_id;
-    $mensagem->subject = 'Termo de Estágio Aprovado';
-    $mensagem->message = $email;
-    $mensagem->dt_message = date('Y-m-d');
-    $mensagem->checked = 'N';
-    $mensagem->store();
-    //envia email tambem
-    MailService::send( $estagio->aluno->email, 'Termo de Estágio aprovado', $email, 'html' );
- 
-
- 
-    TTransaction::close();
-    $action1 = new TAction(array($this, 'onReload'));
-    new TMessage('info', 'Termo
-    de estágio aprovado', $action1);
-   
-   
     
-    // shows the question dialog
+
+    
 
 
-   }
-   public function link(){
+
+
+   
+   
+   public function link()
+   {
 
    }
     

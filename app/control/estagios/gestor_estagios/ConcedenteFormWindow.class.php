@@ -1,8 +1,17 @@
 <?php
 
+use Adianti\Control\TAction;
 use Adianti\Control\TWindow;
-use Adianti\Widget\Form\TCombo;
 use Adianti\Widget\Form\TDate;
+use Adianti\Widget\Form\TCombo;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Widget\Container\TVBox;
+use Adianti\Widget\Wrapper\TDBCombo;
+use Adianti\Validator\TEmailValidator;
+use Adianti\Widget\Util\TXMLBreadCrumb;
+use Adianti\Validator\TRequiredValidator;
+use Adianti\Wrapper\BootstrapFormBuilder;
 
 /**
  * StandardFormView Registration
@@ -28,7 +37,11 @@ class ConcedenteFormWindow extends TWindow
     function __construct()
     {
         parent::__construct();
-        parent::setSize(0.9, 0.9);
+        
+        parent::setSize(0.8, null);
+        parent::removePadding();
+        parent::setTitle('Informações Concedente');
+        parent::disableEscape();
         
         $this->setDatabase('estagio');    // defines the database
         $this->setActiveRecord('Concedente');   // defines the active record
@@ -36,7 +49,7 @@ class ConcedenteFormWindow extends TWindow
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_concedente');
-        $this->form->setFormTitle('Cadastro de Empresa');
+       
         $this->form->setClientValidation(true);
         
         
@@ -110,7 +123,7 @@ class ConcedenteFormWindow extends TWindow
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
-        $vbox->add(new TXMLBreadCrumb('menu.xml', 'ConcedenteList'));
+        
         $vbox->add($this->form);
         parent::add($vbox);
     }
