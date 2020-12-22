@@ -83,7 +83,7 @@ class NotificaForm extends TWindow
             $dados->conteudo = $param['pendencia'];
             $dados->data_envio = date('Y-m-d');
             $dados->de = 'Central de Estágios';
-            $dados->convenio_id = $param['id'];
+            $dados->convenio_id = $param['key'];
 
             $this->form->setData($dados);
         }
@@ -104,19 +104,14 @@ class NotificaForm extends TWindow
         
     }
 
-    public static function enviarEmail($param){
+    public function enviarEmail($param){
 
-       
-        echo "<pre>";
-
-        print_r($param);
-        
-        echo "</pre>";
-        MailService::send( $param['para'], $param['assunto'], $param['conteudo'], 'html' );
+        $dados = $this->form->getData();
+        MailService::send( $dados->para, $dados->assunto, $dados->conteudo, 'html' );
        
         TTransaction::open('estagio');
         $email = new Email;
-        $email->fromArray($param);
+        $email->fromArray($dados);
         $email->store();
 
         TTransaction::close();
