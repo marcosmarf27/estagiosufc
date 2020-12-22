@@ -87,7 +87,7 @@ class ConcedenteForm extends TPage
         $pendencia->setSize('100%', 500);
         
         $tipo->setChangeAction(new TAction(array($this, 'onChangeType')));
-        self::onChangeType( ['_field_value' => '1'] );
+       // self::onChangeType( ['_field_value' => '1'] );
      
 
 
