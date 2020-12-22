@@ -73,10 +73,11 @@ class ConcedenteList extends TPage
         
         // creates the datagrid columns
         $col_id    = new TDataGridColumn('id', 'Id', 'right', '5%');
-        $col_name  = new TDataGridColumn('nome', 'Name', 'left', '30%');
-        $col_situacao  = new TDataGridColumn('situacao', 'Status', 'left', '30%');
-        $convenio= new TDataGridColumn('n_convenio', 'Nº processo', 'left', '20%');
+        $col_name  = new TDataGridColumn('nome', 'Name', 'left', '25%');
+        $col_situacao  = new TDataGridColumn('situacao', 'Status', 'left', '15%');
+        $convenio= new TDataGridColumn('n_convenio', 'Nº processo', 'left', '15%');
         $criacao  = new TDataGridColumn('criacao', 'Data envio', 'left', '20%');
+        $ultima  = new TDataGridColumn('atualizacao', 'Última atualziação', 'left', '20%');
         //$cidade = new TDataGridColumn('cidade->nome', 'Cidade', 'center', '10%');
        
         
