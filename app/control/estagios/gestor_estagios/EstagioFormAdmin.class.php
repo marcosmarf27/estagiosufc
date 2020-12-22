@@ -264,8 +264,7 @@ class EstagioFormAdmin extends TWindow
         
         
         
-        $this->form->addAction( 'Salvar Termo', new TAction([$this, 'onSave']), 'fa:save green' );
-        $this->form->addActionLink( 'Novo', new TAction([$this, 'onClear']), 'fa:eraser red' );
+      
        
       
         
