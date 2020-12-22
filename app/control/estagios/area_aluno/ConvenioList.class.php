@@ -69,8 +69,8 @@ class ConvenioList extends TPage
         // creates the datagrid columns
        // $col_id    = new TDataGridColumn('id', 'Id', 'right', '5%');
         $col_name  = new TDataGridColumn('nome', 'RAZÃO SOCIAL', 'left', '20%');
-        $col_situacao  = new TDataGridColumn('situacao', 'STATUS', 'left', '10%');
-        $cnpj= new TDataGridColumn('cnpj', 'CNPJ', 'left', '15%');
+        $col_situacao  = new TDataGridColumn('situacao', 'STATUS', 'left', '15%');
+        $cnpj= new TDataGridColumn('cnpj', 'CNPJ', 'left', '10%');
        
        // $tipo  = new TDataGridColumn('tipo', 'Categoria', 'left', '15%');
         $convenio = new TDataGridColumn('n_convenio', 'Nº PROCESSO', 'center', '10%');
