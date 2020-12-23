@@ -97,7 +97,7 @@ class ConcedenteList extends TPage
         $action1 = new TDataGridAction(['ConcedenteForm', 'onEdit'],   ['key' => '{id}'] );
         $action2 = new TDataGridAction([$this, 'onDelete'],   ['key' => '{id}'] );
         $action3 = new TDataGridAction(['ListEstagioEmpresa', 'onReload'],   ['key' => '{id}'] );
-        $action4 = new TDataGridAction(['EmailList', 'listarEmails'],   ['key' => '{id}'] );
+        $action4 = new TDataGridAction(['EmailList', 'listarEmails'],   ['email' => '{id}'] );
         
         $this->datagrid->addAction($action1, 'Editar',   'far:edit blue');
         $this->datagrid->addAction($action2, 'Deletar', 'far:trash-alt red');

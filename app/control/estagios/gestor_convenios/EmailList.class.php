@@ -44,7 +44,7 @@ class EmailList extends TPage
     public function __construct($param)
     {
         parent::__construct();
-        if(!empty($param['key'])){
+        if(!empty($param['email'])){
             TSession::delValue(__CLASS__.'emailPorConvenio');
             TSession::setValue(__CLASS__.'emailPorConvenio', $param['key']);
         }
