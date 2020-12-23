@@ -2,7 +2,9 @@
 
 use Adianti\Control\TPage;
 use Adianti\Control\TAction;
+use Adianti\Database\TFilter;
 use Adianti\Registry\TSession;
+use Adianti\Database\TCriteria;
 use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TLabel;
 use Adianti\Widget\Container\TVBox;
@@ -42,12 +44,15 @@ class EmailList extends TPage
     public function __construct($param)
     {
         parent::__construct();
-
-        if($param){
-            $criteria = new TCriteria();
-            $criteria->add(new TFilter('convenio_id','=', TSession::getValue(__CLASS__.'emailPorConvenio')));
-            $this->setCriteria($criteria);
+        if(!empty($param['key'])){
+            TSession::delValue(__CLASS__.'emailPorConvenio');
+            TSession::setValue(__CLASS__.'emailPorConvenio', $param['key']);
         }
+        
+        $criteria = new TCriteria();
+        $criteria->add(new TFilter('convenio_id','=', TSession::getValue(__CLASS__.'emailPorConvenio')));
+        $this->setCriteria($criteria);
+        
         
         $this->setDatabase('estagio'); // define the database
         $this->setActiveRecord('Email'); // define the Active Record
@@ -118,9 +123,8 @@ class EmailList extends TPage
         // pack the table inside the page
         parent::add($vbox);
     }
-    public function listarEmails($param){
-
-        TSession::setValue(__CLASS__.'emailPorConvenio', $param['key']);
+    public function listarEmails(){
+      
         
     }
 }
