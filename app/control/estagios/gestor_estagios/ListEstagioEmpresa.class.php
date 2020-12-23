@@ -96,10 +96,10 @@ class ListEstagioEmpresa extends TWindow
         $this->datagrid->width = "100%";
         
         // creates the datagrid columns
-        $column_id       = new TDataGridColumn('id', 'nº Estágio', 'center', '5%');
+        $column_id       = new TDataGridColumn('id', 'nº Estágio', 'center', '10%');
         $column_situacao    = new TDataGridColumn('situacao', 'Status', 'center', '20%');
         $column_aluno = new TDataGridColumn('aluno->nome', 'Aluno', 'left', '20%');
-       
+        $column_tipo        = new TDataGridColumn('tipo_estagio->nome', 'TCE tipo', 'left', '15%');
         $column_data_ini     = new TDataGridColumn('data_ini', 'Data Inicio', 'center', '20%');
         $column_data_fim    = new TDataGridColumn('data_fim', 'Data Término', 'center', '20%');
        
@@ -107,6 +107,7 @@ class ListEstagioEmpresa extends TWindow
         $this->datagrid->addColumn($column_situacao);
     
         $this->datagrid->addColumn($column_aluno);
+        $this->datagrid->addColumn($column_tipo);
      
         $this->datagrid->addColumn($column_data_ini);
         $this->datagrid->addColumn($column_data_fim);
