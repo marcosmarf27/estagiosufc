@@ -44,7 +44,10 @@ class ListEstagioEmpresa extends TWindow
     public function __construct($param)
     {
         parent::__construct();
-        parent::setSize(0.9, 0.9);
+        parent::setSize(0.9, null);
+        parent::setTitle('Estágios Registrados na empresa');
+        parent::disableEscape();
+        parent::removePadding();
        if(!empty($param['key'])){
 
          TSession::setValue(__CLASS__.'estagios_concedente', $param['key']);
@@ -73,7 +76,7 @@ class ListEstagioEmpresa extends TWindow
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_estagios_empresa');
-        $this->form->setFormTitle('Estágios na Empresa');
+        
         
         $aluno_id = new TDBUniqueSearch('aluno_id', 'estagio', 'Aluno', 'id', 'nome');
         $aluno_id->setMinLength(1);
