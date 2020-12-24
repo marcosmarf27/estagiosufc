@@ -53,8 +53,8 @@ class SystemAdministrationDashboard extends TPage
             $indicator2->enableSection('main', ['title' => 'Convênios cadastrados',   'icon' => 'users',      'background' => 'blue',   'value' => Concedente::count($russas)]);
             $indicator3->enableSection('main', ['title' => 'Professores que já orientaram',    'icon' => 'university', 'background' => 'purple', 'value' => Professor::count()]);
             $indicator4->enableSection('main', ['title' => 'Alunos cadastrados', 'icon' => 'code',       'background' => 'green',  'value' => SystemUser::count()]);
-            $indicator5->enableSection('main', ['title' => 'Estágios Concluidos', 'icon' => 'flag',       'background' => 'blue',  'value' => SystemUser::count($concluidos)]);
-            $indicator6->enableSection('main', ['title' => 'Estágios Ativos', 'icon' => 'code',       'background' => 'green',  'value' => SystemUser::count($ativos)]);
+            $indicator5->enableSection('main', ['title' => 'Estágios Concluidos', 'icon' => 'flag',       'background' => 'blue',  'value' => Estagio::count($concluidos)]);
+            $indicator6->enableSection('main', ['title' => 'Estágios Ativos', 'icon' => 'code',       'background' => 'green',  'value' => Estagio::count($ativos)]);
 
             $chart1 = new THtmlRenderer('app/resources/google_pie_chart.html');
             $data1 = [];
