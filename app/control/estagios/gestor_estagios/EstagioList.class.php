@@ -124,12 +124,15 @@ class EstagioList extends TPage
      
         
         // creates the datagrid columns
-        $column_id          = new TDataGridColumn('id', 'nº Estágio', 'center', '5%');
-        $column_situacao    = new TDataGridColumn('situacao', 'Status', 'center', '20%');
-        $column_aluno       = new TDataGridColumn('aluno->nome', 'Aluno', 'left', '25%');
-        $column_concedente  = new TDataGridColumn('concedente->nome', 'Empresa/Instituição', 'left', '25%');
-        $column_data_ini    = new TDataGridColumn('data_ini', 'Data Inicio', 'center', '15%');
-        $column_data_fim    = new TDataGridColumn('data_fim', 'Data Término', 'center', '15%');
+        $column_id          = new TDataGridColumn('id', 'ESTÁGIO', 'center', '5%');
+        $column_situacao    = new TDataGridColumn('situacao', 'STATUS', 'center', '10%');
+        $column_aluno       = new TDataGridColumn('aluno->nome', 'ALUNO', 'left', '20%');
+        $column_tipo        = new TDataGridColumn('tipo_estagio->nome', 'TIPO', 'left', '10%');
+        $column_concedente  = new TDataGridColumn('concedente->nome', 'CONCEDENTE', 'left', '20%');
+        $column_data_ini    = new TDataGridColumn('data_ini', 'INICIO', 'center', '10%');
+        $column_data_fim    = new TDataGridColumn('data_fim', 'TÉRMINO', 'center', '10%');
+        $column_data_envio    = new TDataGridColumn('criacao', 'ENVIO', 'center', '15%');
+
        
        
         
@@ -139,9 +142,11 @@ class EstagioList extends TPage
         $this->datagrid->addColumn($column_id);
         $this->datagrid->addColumn($column_situacao);
         $this->datagrid->addColumn($column_aluno);
+        $this->datagrid->addColumn($column_tipo);
         $this->datagrid->addColumn($column_concedente);
         $this->datagrid->addColumn($column_data_ini);
         $this->datagrid->addColumn($column_data_fim);
+        $this->datagrid->addColumn($column_data_envio);
         
      
        
@@ -161,6 +166,10 @@ class EstagioList extends TPage
         $column_data_fim->setTransformer( function($value, $object, $row) {
             $date = new DateTime($value);
             return $date->format('d/m/Y');
+        });
+        $column_data_envio->setTransformer( function($value, $object, $row) {
+            $date = new DateTime($value);
+            return $date->format('d/m/Y H:i:s');
         });
         //ações
         $action_edit   = new TDataGridAction(['EstagioFormAdmin', 'onEdit'],   ['key' => '{id}',  'register_state' => 'false', 'nome'=> 'marcos antonio rafael da fonseca ç']);
