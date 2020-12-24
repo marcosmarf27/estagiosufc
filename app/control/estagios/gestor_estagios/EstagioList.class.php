@@ -326,7 +326,7 @@ class EstagioList extends TPage
    
                    case 5:
                        $div = new TElement('span');
-                       $div->class="label label-dark";
+                       $div->class="label label-secondary";
                        $div->style="text-shadow:none; font-size:12px";
                        $div->add('Concluido');
                        return $div;
