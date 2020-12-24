@@ -55,6 +55,8 @@ class ConcedenteForm extends TPage
         
         // create the form fields
         $id       = new TEntry('id');
+        $mes       = new TEntry('mes');
+        $ano       = new TEntry('ano');
        
         $nome     = new TEntry('nome');
         $n_convenio     = new TEntry('n_convenio');
@@ -110,7 +112,7 @@ class ConcedenteForm extends TPage
 
         $this->form->appendPage('Dados básicos');
         $this->form->addFields( [new TLabel('ID')], [$id],  [new TLabel('Situação')], [$situacao],  [new TLabel('Tipo')], [$tipo]);
-        $this->form->addFields( [new TLabel('Nome')], [$nome],  [new TLabel('Origem')], [$origem]  );
+        $this->form->addFields( [new TLabel('Nome')], [$nome],  [new TLabel('Origem')], [$origem],  [new TLabel('Mês')], [$mes],  [new TLabel('Ano')], [$ano]  );
         $this->form->addFields( [new TLabel('<b>CPF</b>')], [$cpf] );
         $this->form->addFields( [new TLabel('<b>CNPJ</b>')], [$cnpj] );
         $this->form->addFields( [new TLabel('E-mail')], [$email] );

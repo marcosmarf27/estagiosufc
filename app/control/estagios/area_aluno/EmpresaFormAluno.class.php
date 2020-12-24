@@ -60,6 +60,8 @@ class EmpresaFormAluno extends TPage
        
         $nome     = new TEntry('nome');
         $origem = new THidden('origem');
+        $ano = new THidden('ano');
+        $mes = new THidden('mes');
        
       
     
@@ -119,8 +121,12 @@ class EmpresaFormAluno extends TPage
         $this->form->addFields( [new TLabel('Endereço')], [$endereco],  [new TLabel('Cidade')], [$cidade_id] );
         $this->form->addFields( [new TLabel('Documentação Convênio')], [$arquivo] );
         $this->form->addFields( [$origem]);
-
+        $this->form->addFields( [$mes]);
+        $this->form->addFields( [$ano]);
+        //valores padrões
         $origem->setValue('Russas');
+        $ano->setValue(date('Y'));
+        $mes->setValue(date('m'));
        
        
 

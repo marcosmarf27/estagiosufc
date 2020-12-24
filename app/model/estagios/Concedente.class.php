@@ -22,6 +22,8 @@ class Concedente extends TRecord
       
         parent::addAttribute('email');
         parent::addAttribute('origem');
+        parent::addAttribute('mes');
+        parent::addAttribute('ano');
        
         parent::addAttribute('telefone');
         parent::addAttribute('cidade_id');

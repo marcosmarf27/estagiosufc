@@ -106,7 +106,29 @@ class SystemAdministrationDashboard extends TPage
                                             'height'  => '500px',
                                             'title'  => 'Maiores Parceiros UFC Campus Russas',
                                             'ytitle' => '', 
-                                            'xtitle' => 'Quantidade',
+                                            'xtitle' => 'Estágios',
+                                            'uniqid' => uniqid()]);
+
+            $chart4 = new THtmlRenderer('app/resources/google_column_chart.html');
+            $data4 = [];
+            $data4[] = [ 'Ano', 'Convênios' ];
+            
+            $stats4 = Estagio::groupBy('ano')->countBy('id', 'count');
+            if ($stats3)
+            {
+                foreach ($stats4 as $row)
+                {
+                    $data4[] = [ $row->ano, (int) $row->count];
+                }
+            }
+            
+            // replace the main section variables
+            $chart4->enableSection('main', ['data'   => json_encode($data4),
+                                            'width'  => '100%',
+                                            'height'  => '500px',
+                                            'title'  => 'Convênios por ano',
+                                            'ytitle' => '', 
+                                            'xtitle' => 'Convênios',
                                             'uniqid' => uniqid()]);
             
             $html->enableSection('main', ['indicator1' => $indicator1,
@@ -115,7 +137,8 @@ class SystemAdministrationDashboard extends TPage
                                           'indicator4' => $indicator4,
                                           'chart1'     => $chart1,
                                           'chart2'     => $chart2,
-                                          'chart3'     => $chart3] );
+                                          'chart3'     => $chart3,
+                                          'chart4'     => $chart4] );
             
             $container = new TVBox;
             $container->style = 'width: 100%';
