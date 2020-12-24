@@ -88,7 +88,7 @@ class EstagioList extends TPage
         $id        = new TEntry('id');
         $situacao = new TCombo('situacao');
         $matricula = new TEntry('matricula');
-        $situacao->addItems([ '1' => 'Em Avaliação', '2' => 'Estágio Aprovado','3' => 'Rescindidos', '4'=> 'Estágio com Problemas']);
+        $situacao->addItems([ '1' => 'Em Avaliação', '2' => 'Estágio Aprovado','3' => 'Rescindidos', '4'=> 'Estágio com Problemas', '5'=> 'concluido']);
         $date_from = new TDate('date_from');
         $date_to   = new TDate('date_to');
         
@@ -326,9 +326,9 @@ class EstagioList extends TPage
    
                    case 5:
                        $div = new TElement('span');
-                       $div->class="label label-danger";
+                       $div->class="label label-dark";
                        $div->style="text-shadow:none; font-size:12px";
-                       $div->add('Cancelado');
+                       $div->add('Concluido');
                        return $div;
                        break;
                     
