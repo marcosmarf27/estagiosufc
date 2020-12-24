@@ -170,8 +170,12 @@ class EstagioList extends TPage
         $action_aprovar = new TDataGridAction([$this, 'aprovarTermo'],   ['id' => '{id}'] );
         $action_registra_pendencia  = new TDataGridAction(['PendenciaFormList', 'registraPendencia'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}', 'register_state' => 'false']);
         $action_registra_documento  = new TDataGridAction(['DocumentoFormList', 'registraDocumento'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}']);
+        $action_usuario = new TDataGridAction(['SystemUserList',   'acessarUsuario'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}']);
 
        //formataçao das ações
+        $action_usuario->setLabel('Acessar usuário');
+        $action_usuario->setImage('far:user-circle gray');
+
         $action_edit->setLabel('Abrir termo');
         $action_edit->setImage('far:edit blue fa-fw');
 
@@ -197,6 +201,7 @@ class EstagioList extends TPage
         $action_group = new TDataGridActionGroup('Realizar Ação', 'fa:th');
         
         $action_group->addHeader('>>Edição<<');
+        $action_group->addAction($action_usuario);
         $action_group->addAction($action_edit);
         $action_group->addAction($action_delete);
         $action_group->addSeparator();

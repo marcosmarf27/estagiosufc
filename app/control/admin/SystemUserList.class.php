@@ -1,4 +1,25 @@
 <?php
+
+use Adianti\Control\TAction;
+use Adianti\Database\TFilter;
+use Adianti\Base\TStandardList;
+use Adianti\Database\TCriteria;
+use Adianti\Widget\Form\TCombo;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Widget\Base\TElement;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Util\TDropDown;
+use Adianti\Widget\Container\TVBox;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Datagrid\TDataGrid;
+use Adianti\Widget\Util\TXMLBreadCrumb;
+use Adianti\Widget\Container\TPanelGroup;
+use Adianti\Wrapper\BootstrapFormBuilder;
+use Adianti\Widget\Datagrid\TDataGridAction;
+use Adianti\Widget\Datagrid\TDataGridColumn;
+use Adianti\Widget\Datagrid\TPageNavigation;
+use Adianti\Wrapper\BootstrapDatagridWrapper;
 /**
  * SystemUserList
  *
@@ -21,8 +42,13 @@ class SystemUserList extends TStandardList
     /**
      * Page constructor
      */
-    public function __construct()
+    public function __construct($param)
     {
+        if(!empty($param['usuario_id'])){
+            $criteria = new TCriteria();
+            $criteria->add(new TFilter('id','=', $param['usuario_id']));
+            $this->setCriteria($criteria);
+        }
         parent::__construct();
         
         parent::setDatabase('permission');            // defines the database
@@ -258,4 +284,9 @@ class SystemUserList extends TStandardList
             TTransaction::rollback();
         }
     }
+    public function acessarUsuario(){
+        
+    }
+
+
 }
