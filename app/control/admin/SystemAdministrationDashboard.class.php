@@ -114,7 +114,8 @@ class SystemAdministrationDashboard extends TPage
             $data4[] = [ 'Ano', 'Convênios' ];
             
             $stats4 = Estagio::groupBy('ano')->countBy('id', 'count');
-            if ($stats3)
+            asort($stats4);
+            if ($stats4)
             {
                 foreach ($stats4 as $row)
                 {
