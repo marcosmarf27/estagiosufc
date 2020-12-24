@@ -154,6 +154,8 @@ class SystemAdministrationDashboard extends TPage
                                           'indicator2' => $indicator2,
                                           'indicator3' => $indicator3,
                                           'indicator4' => $indicator4,
+                                          'indicator5' => $indicator5,
+                                          'indicator6' => $indicator6,
                                           'chart1'     => $chart1,
                                           'chart2'     => $chart2,
                                           'chart3'     => $chart3,
