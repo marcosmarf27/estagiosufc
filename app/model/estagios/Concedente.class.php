@@ -53,4 +53,6 @@ class Concedente extends TRecord
         // returns the City Active Record
         return $this->cidade;
     }
+
+   
 }

@@ -59,6 +59,7 @@ class EmpresaFormAluno extends TPage
         $id       = new THidden('id');
        
         $nome     = new TEntry('nome');
+        $origem = new THidden('origem');
        
       
     
@@ -117,6 +118,9 @@ class EmpresaFormAluno extends TPage
        
         $this->form->addFields( [new TLabel('Endereço')], [$endereco],  [new TLabel('Cidade')], [$cidade_id] );
         $this->form->addFields( [new TLabel('Documentação Convênio')], [$arquivo] );
+        $this->form->addFields( [$origem]);
+
+        $origem->setValue('Russas');
        
        
 
@@ -138,7 +142,7 @@ class EmpresaFormAluno extends TPage
         $html1->enableSection('main', array());
        
         $acordion = new TAccordion;
-        $acordion->appendPage('INSTRUÇÕES E INFORMAÇÕES IMPORTANTES SOBRE CONVÊNIO', $html1);
+        $acordion->appendPage('CLIQUE AQUI - INSTRUÇÕES E INFORMAÇÕES IMPORTANTES SOBRE CONVÊNIO', $html1);
      
         // wrap the page content using vertical box
         $vbox = new TVBox;

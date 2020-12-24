@@ -28,9 +28,13 @@ class SystemAdministrationDashboard extends TPage
             $indicator2 = new THtmlRenderer('app/resources/info-box.html');
             $indicator3 = new THtmlRenderer('app/resources/info-box.html');
             $indicator4 = new THtmlRenderer('app/resources/info-box.html');
+            //contar só convênios registrados em russas
+            $russas = new TCriteria;
+            $russas->add(new TFilter('origem',   '=',      'Russas'));
+                
             
             $indicator1->enableSection('main', ['title' => 'Estágios Avaliados',    'icon' => 'user',       'background' => 'orange', 'value' => Estagio::count()]);
-            $indicator2->enableSection('main', ['title' => 'Convênios cadastrados',   'icon' => 'users',      'background' => 'blue',   'value' => Concedente::count()]);
+            $indicator2->enableSection('main', ['title' => 'Convênios cadastrados',   'icon' => 'users',      'background' => 'blue',   'value' => Concedente::count($russas)]);
             $indicator3->enableSection('main', ['title' => 'Professores que já orientaram',    'icon' => 'university', 'background' => 'purple', 'value' => Professor::count()]);
             $indicator4->enableSection('main', ['title' => 'Alunos cadastrados', 'icon' => 'code',       'background' => 'green',  'value' => SystemUser::count()]);
             
