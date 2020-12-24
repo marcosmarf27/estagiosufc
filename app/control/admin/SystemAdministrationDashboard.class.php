@@ -89,7 +89,7 @@ class SystemAdministrationDashboard extends TPage
 
             $chart3 = new THtmlRenderer('app/resources/google_column_chart.html');
             $data3 = [];
-            $data3[] = [ 'Tipo de Estágio', 'Quantidade' ];
+            $data3[] = [ 'Tipo de Estágio', 'Estágios' ];
             
             $stats3 = Estagio::groupBy('concedente_id')->countBy('id', 'count');
             if ($stats3)
