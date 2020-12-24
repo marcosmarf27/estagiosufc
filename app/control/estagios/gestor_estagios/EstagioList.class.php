@@ -125,10 +125,10 @@ class EstagioList extends TPage
         
         // creates the datagrid columns
         $column_id          = new TDataGridColumn('id', 'ESTÁGIO', 'center', '5%');
-        $column_situacao    = new TDataGridColumn('situacao', 'STATUS', 'center', '10%');
+        $column_situacao    = new TDataGridColumn('situacao', 'STATUS', 'center', '15%');
         $column_aluno       = new TDataGridColumn('aluno->nome', 'ALUNO', 'left', '20%');
         $column_tipo        = new TDataGridColumn('tipo_estagio->nome', 'TIPO', 'left', '10%');
-        $column_concedente  = new TDataGridColumn('concedente->nome', 'CONCEDENTE', 'left', '20%');
+        $column_concedente  = new TDataGridColumn('concedente->nome', 'CONCEDENTE', 'left', '15%');
         $column_data_ini    = new TDataGridColumn('data_ini', 'INICIO', 'center', '10%');
         $column_data_fim    = new TDataGridColumn('data_fim', 'TÉRMINO', 'center', '10%');
         $column_data_envio    = new TDataGridColumn('criacao', 'ENVIO', 'center', '15%');
