@@ -216,9 +216,9 @@ class ListEstagioEmpresa extends TWindow
     
                         case 5:
                             $div = new TElement('span');
-                            $div->class="label label-danger";
+                            $div->class="label label-info";
                              $div->style="text-shadow:none; font-size:12px";
-                            $div->add('Cancelado');
+                            $div->add('Concluido');
                             return $div;
                             break;
              
