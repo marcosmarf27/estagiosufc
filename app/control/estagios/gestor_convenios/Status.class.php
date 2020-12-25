@@ -34,10 +34,10 @@ class Status extends TWindow
             $convenio = new Concedente($param['convenio_id']);
             $conteudo = $convenio->pendencia;
             TTransaction::close();
-            echo $conteudo;
+           
         }
         
-        echo $conteudo;
+       
         $panel = new TPanelGroup;
         $panel->add($conteudo);
         
