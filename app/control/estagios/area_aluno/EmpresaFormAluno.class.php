@@ -227,4 +227,7 @@ class EmpresaFormAluno extends TPage
 
      
     }
+    public function abrir(){
+        
+    }
 }

@@ -57,6 +57,7 @@ class ConvenioList extends TPage
         $this->form->addAction('Buscar', new TAction([$this, 'onSearch']), 'fa:search blue');
        
         $this->form->addActionLink('Limpar',  new TAction([$this, 'clear']), 'fa:eraser red');
+        $this->form->addActionLink('Solicitar Convênio',  new TAction(['EmpresaFormAluno', 'abrir']), 'fa:plus blue');
         
         // keep the form filled with the search data
         $this->form->setData( TSession::getValue('ConvenioList_filter_data') );
