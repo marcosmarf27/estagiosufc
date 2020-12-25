@@ -126,7 +126,7 @@ class ConvenioList extends TPage
         // creates the page structure using a table
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
-        $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+       
         $vbox->add($this->form);
         $vbox->add(TPanelGroup::pack('', $this->datagrid, $this->pageNavigation));
         

@@ -1,5 +1,5 @@
 .taccordion {
-  background-color: #eee;
+  background-color: rgb(243, 240, 240);
   font-weight: bold;
   cursor: pointer;
   padding: 12px;
@@ -10,13 +10,14 @@
 }
 
 .taccordion.active, .taccordion:hover {
-  background-color: #ccc;
+  background-color: rgb(106, 104, 243);
 }
 
 .taccordion-content {
   padding: 0 18px;
   display: none;
   overflow: hidden;
+  background-color: white;
 }
 
 .taccordion:after {

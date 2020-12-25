@@ -24,7 +24,7 @@ class SystemRegistrationForm extends TPage
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_registration');
-        $this->form->setFormTitle( _t('User registration') );
+        $this->form->setFormTitle( 'Cadastro de Aluno UFC' );
         
         // create the form fields
         $login      = new TEntry('login');
