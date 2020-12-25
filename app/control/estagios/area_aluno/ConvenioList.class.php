@@ -68,17 +68,17 @@ class ConvenioList extends TPage
         $this->datagrid->datatable= 'true';
         
         // creates the datagrid columns
-       // $col_id    = new TDataGridColumn('id', 'Id', 'right', '5%');
-        $col_name  = new TDataGridColumn('nome', 'RAZÃO SOCIAL', 'left', '20%');
-        $col_situacao  = new TDataGridColumn('situacao', 'STATUS', 'left', '15%');
-        $cnpj= new TDataGridColumn('cnpj', 'CNPJ', 'left', '10%');
        
-       // $tipo  = new TDataGridColumn('tipo', 'Categoria', 'left', '15%');
-        $convenio = new TDataGridColumn('n_convenio', 'Nº PROCESSO', 'center', '10%');
-        $validade_ini = new TDataGridColumn('validade_ini', 'INICIO VIGÊNCIA', 'center', '15%');
+        $col_name       = new TDataGridColumn('nome', 'RAZÃO SOCIAL', 'left', '20%');
+        $col_situacao   = new TDataGridColumn('situacao', 'STATUS', 'left', '15%');
+        $cnpj           = new TDataGridColumn('cnpj', 'CNPJ', 'left', '10%');
+        $convenio       = new TDataGridColumn('n_convenio', 'Nº PROCESSO', 'center', '10%');
+        $validade_ini   = new TDataGridColumn('validade_ini', 'INICIO VIGÊNCIA', 'center', '15%');
+        $data_envio     = new TDataGridColumn('criacao', 'ENVIADO EM', 'center', '15%');
+        $atualizacao    = new TDataGridColumn('atualizacao', 'MOVIMENTADO EM', 'center', '15%');
+       
+      
 
-        $data_envio = new TDataGridColumn('criacao', 'ENVIADO EM', 'center', '15%');
-        $atualizacao = new TDataGridColumn('atualizacao', 'MOVIMENTADO EM', 'center', '15%');
        
        
         
@@ -86,17 +86,22 @@ class ConvenioList extends TPage
         $this->datagrid->addColumn($col_name);
         $this->datagrid->addColumn($col_situacao);
         $this->datagrid->addColumn($cnpj);
-       
-       // $this->datagrid->addColumn($tipo);
-       $this->datagrid->addColumn($atualizacao);
-       $this->datagrid->addColumn($data_envio);
+        $this->datagrid->addColumn($atualizacao);
+        $this->datagrid->addColumn($data_envio);
         $this->datagrid->addColumn($validade_ini);
-        
         $this->datagrid->addColumn($convenio);
+       
+        $verparecer = new TDataGridAction(['Status', 'abrir'],   ['convenio_id' => '{id}', 'register_state' => 'false'] );
+        
+        $verparecer->setDisplayCondition([$this, 'displayParecer']);
+        
+        $this->datagrid->addAction($verparecer, '<b>Ver</b> - parecer/resultado', 'fas:file fa-fw');
+        
 
         $col_situacao->setTransformer(array($this, 'Ajustar'));
 
-        $validade_ini->setTransformer( function($value) {
+        $validade_ini->setTransformer( function($value) 
+        {
             if(!empty($value)){
                 $date = new DateTime($value);
                 return $date->format('d/m/Y');
@@ -105,10 +110,12 @@ class ConvenioList extends TPage
             }
          
         });
+
         $atualizacao->setTransformer( function($value) {
             $date = new DateTime($value);
             return $date->format('d/m/Y');
         });
+
         $data_envio->setTransformer( function($value) {
             $date = new DateTime($value);
             return $date->format('d/m/Y');
@@ -190,6 +197,15 @@ class ConvenioList extends TPage
                 
          
         }
+    }
+
+    public function displayParecer( $object )
+    {
+        if ($object->situacao == '4' and !empty($object->pendencia))
+        {
+            return TRUE;
+        }
+            return FALSE;
     }
     
 }
