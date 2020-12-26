@@ -186,41 +186,41 @@ class ListEstagioEmpresa extends TWindow
             case 1:
                 $div = new TElement('span');
                 $div->class="label label-primary";
-                 $div->style="text-shadow:none; font-size:12px";
+                $div->style="text-shadow:none; font-size:12px";
                 $div->add('Em Avaliação');
                 return $div;
                 break;
             case 2:
                 $div = new TElement('span');
                 $div->class="label label-success";
-                 $div->style="text-shadow:none; font-size:12px";
+                $div->style="text-shadow:none; font-size:12px";
                 $div->add('Estágio Aprovado');
                 return $div;
                 break;
     
-                case 3:
-                    $div = new TElement('span');
-                    $div->class="label label-danger";
-                     $div->style="text-shadow:none; font-size:12px";
-                    $div->add('Rescindido');
-                    return $div;
-                    break;
-    
-                    case 4:
-                        $div = new TElement('span');
-                        $div->class="label label-warning";
-                         $div->style="text-shadow:none; font-size:12px";
-                        $div->add('Estágio com problemas');
-                        return $div;
-                        break;
-    
-                        case 5:
-                            $div = new TElement('span');
-                            $div->class="label label-info";
-                             $div->style="text-shadow:none; font-size:12px";
-                            $div->add('Concluido');
-                            return $div;
-                            break;
+            case 3:
+                $div = new TElement('span');
+                $div->class="label label-danger";
+                    $div->style="text-shadow:none; font-size:12px";
+                $div->add('Rescindido');
+                return $div;
+                break;
+
+            case 4:
+                $div = new TElement('span');
+                $div->class="label label-warning";
+                    $div->style="text-shadow:none; font-size:12px";
+                $div->add('Estágio com problemas');
+                return $div;
+                break;
+
+            case 5:
+                $div = new TElement('span');
+                $div->class="label label-info";
+                $div->style="text-shadow:none; font-size:12px";
+                $div->add('Concluido');
+                return $div;
+                break;
              
                     
                 

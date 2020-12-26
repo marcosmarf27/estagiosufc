@@ -28,6 +28,10 @@
         <action>EmpresaFormAluno#register_state=false</action>
         <icon>fas:align-left fa-fw</icon>
       </menuitem>
+      <menuitem label="Validar  e consultar estágio">
+        <action>ValidarTermo</action>
+        <icon>fas:check fa-fw</icon>
+      </menuitem>
     </menu>
   </menuitem>
   <menuitem label="Gestor de Estágios">

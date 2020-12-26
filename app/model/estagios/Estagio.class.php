@@ -45,6 +45,7 @@ class Estagio extends TRecord
         parent::addAttribute('editado');
         parent::addAttribute('criacao');
         parent::addAttribute('atualizacao');
+        parent::addAttribute('validador');
       
 
         

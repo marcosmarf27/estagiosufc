@@ -115,14 +115,15 @@ class EstagioListAluno extends TPage
         $action_rescisao = new TDataGridAction([$this, 'gerarRescisao'],   ['key' => '{id}', 'register_state' => 'false'] );
         $action_ver = new TDataGridAction(['PendenciaFormListAluno', 'registraPendencia'],   ['key' => '{id}', 'estagio_id' => '{id}',  'usuario_id' => '{system_user_id}', 'register_state' => 'false'] );
         $action_doc = new TDataGridAction([$this, 'entregarDoc'],   ['key' => '{id}', 'estagio_id' => '{id}', 'usuario_id' => '{system_user_id}', 'register_state' => 'false'] );
-     
+        $declaracao = new TDataGridAction(['DeclaracaoPDF', 'abrir'],   ['estagio_id' => '{id}', 'register_state' => 'false'] );
         
         $action_aditivo->setDisplayCondition([$this, 'displayAcaoA']);
         $action_rescisao->setDisplayCondition([$this, 'displayAcaoRE']);
         $action_ver->setDisplayCondition([$this, 'displayAcaoVer']);
+        $declaracao->setDisplayCondition([$this, 'displayDeclaracao']);
       
       
-        
+        $this->datagrid->addAction($declaracao, 'Emitir declaração', 'fa:file blue');
         $this->datagrid->addAction($action_doc, '<b>Documentos</b> - adicionar/listar documentos', 'fa:list-alt blue');
         $this->datagrid->addAction($action_aditivo, '<b>Termo de Aditivo</b> - Registrar Aditivo', 'far:clone green');
         $this->datagrid->addAction($action_rescisao, '<b>Rescisão</b> - Registrar Rescisão', 'fa:power-off orange'); 
@@ -237,6 +238,14 @@ public function displayAcaoRE( $object )
 public function displayAcaoVer( $object )
     {
         if ($object->situacao == '4')
+        {
+            return TRUE;
+        }
+            return FALSE;
+    }
+public function displayDeclaracao( $object )
+    {
+        if ($object->situacao == '2')
         {
             return TRUE;
         }
@@ -396,12 +405,12 @@ public function ajustarSituacao($value, $object, $row){
                 break;
     
             case 5:
-                    $div = new TElement('span');
-                    $div->class="label label-danger";
-                        $div->style="text-shadow:none; font-size:12px";
-                    $div->add('Cancelado');
-                    return $div;
-                    break;
+                $div = new TElement('span');
+                $div->class="label label-danger";
+                $div->style="text-shadow:none; font-size:12px";
+                $div->add('Cancelado');
+                return $div;
+                break;
         
                     
                 

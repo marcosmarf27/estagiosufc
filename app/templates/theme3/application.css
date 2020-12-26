@@ -1034,3 +1034,8 @@ div[form=form_login] .fb-inline-field-container
     margin-left:44px;
     height:35px;
 }
+
+.tox-tinymce-aux {
+    position: relative;
+    z-index: 10055 !important;
+}

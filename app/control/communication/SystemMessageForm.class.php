@@ -1,4 +1,17 @@
 <?php
+
+use Adianti\Control\TAction;
+use Adianti\Control\TWindow;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Container\TVBox;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Form\THtmlEditor;
+use Adianti\Widget\Wrapper\TQuickForm;
+use Adianti\Validator\TRequiredValidator;
+use Adianti\Wrapper\BootstrapFormWrapper;
+use Adianti\Widget\Wrapper\TDBUniqueSearch;
+
 /**
  * SystemMessageForm
  *
@@ -17,13 +30,13 @@ class SystemMessageForm extends TWindow
      * Class constructor
      * Creates the page and the registration form
      */
-    function __construct()
+    function __construct($param)
     {
         parent::__construct();
-        parent::setSize(0.5, null);
-        parent::setMinWidth(0.9, 800);
+        parent::setSize(0.7, null);
+       
         parent::removePadding();
-        parent::setTitle( _t('Send message') );
+        parent::setTitle('Enviar Notificação' );
         parent::setProperty('class', 'window_modal');
         
         // creates the form
@@ -34,14 +47,26 @@ class SystemMessageForm extends TWindow
         // create the form fields
         $system_user_to_id = new TDBUniqueSearch('system_user_to_id', 'permission', 'SystemUser', 'id', 'name');
         $subject = new TEntry('subject');
-        $message = new TText('message');
+        $message = new THtmlEditor('message');
         $system_user_to_id->setMinLength(2);
 
         // add the fields
         $this->form->addQuickField(_t('User'), $system_user_to_id,  '90%', new TRequiredValidator);
         $this->form->addQuickField(_t('Subject'), $subject,  '90%', new TRequiredValidator );
         $this->form->addQuickField(_t('Message'), $message,  '90%', new TRequiredValidator );
-        $message->setSize('90%', '100');
+        $message->setSize('100%', '500');
+
+        if(!empty($param['usuario_id'])){
+
+            $system_user_to_id->setValue($param['usuario_id']);
+
+         }
+         $replaces = [];
+         $html = new THtmlRenderer('app/resources/tutor/template_notificacao.html');
+         $html->enableSection('main', $replaces);
+         $template = $html->getContents();
+         $message->setValue($template);
+
         
         // create the form actions
         $btn = $this->form->addQuickAction(_t('Send'), new TAction(array($this, 'onSend')), 'far:envelope');

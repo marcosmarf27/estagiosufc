@@ -180,6 +180,7 @@ class EstagioList extends TPage
         $action_registra_pendencia  = new TDataGridAction(['PendenciaFormList', 'registraPendencia'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}', 'register_state' => 'false']);
         $action_registra_documento  = new TDataGridAction(['DocumentoFormList', 'registraDocumento'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}']);
         $action_usuario = new TDataGridAction(['SystemUserList',   'acessarUsuario'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}']);
+        $action_notifica = new TDataGridAction(['SystemMessageForm',   'onClear'],   ['estagio_id' => '{id}', 'usuario_id' => '{system_user_id}']);
 
        //formataçao das ações
         $action_usuario->setLabel('Acessar usuário');
@@ -205,22 +206,27 @@ class EstagioList extends TPage
 
         $action_registra_documento->setLabel('Documentos');
         $action_registra_documento->setImage('fa:search blue');
+
+        
+        $action_notifica->setLabel('Notificar');
+        $action_notifica->setImage('fa:comments blue');
         
         
         $action_group = new TDataGridActionGroup('Realizar Ação', 'fa:th');
         
-        $action_group->addHeader('>>Edição<<');
+        $action_group->addHeader('--Edição--');
         $action_group->addAction($action_usuario);
         $action_group->addAction($action_edit);
         $action_group->addAction($action_delete);
         $action_group->addSeparator();
-        $action_group->addHeader('>>Cadastros<<');
+        $action_group->addHeader('--Cadastros--');
         $action_group->addAction($action_edit_a);
         $action_group->addAction($action_edit_c);
         $action_group->addAction($action_registra_documento);
-        $action_group->addHeader('>>Avaliação<<');
+        $action_group->addHeader('--Avaliação--');
         $action_group->addAction($action_registra_pendencia);
         $action_group->addAction($action_aprovar);
+        $action_group->addAction($action_notifica);
         
         // add the actions to the datagrid
         $this->datagrid->addActionGroup($action_group);

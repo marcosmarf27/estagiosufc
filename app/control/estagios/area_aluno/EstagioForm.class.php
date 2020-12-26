@@ -1,15 +1,26 @@
 <?php
 
+use Adianti\Control\TPage;
 use Adianti\Control\TAction;
 use Adianti\Control\TWindow;
-use Adianti\Database\TTransaction;
+use Adianti\Database\TFilter;
 use Adianti\Registry\TSession;
-use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Form\TDate;
-use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TFile;
-use Adianti\Widget\Form\THidden;
 use Adianti\Widget\Form\TText;
+use Adianti\Database\TCriteria;
+use Adianti\Widget\Form\TCombo;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Widget\Form\THidden;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Form\TFieldList;
+use Adianti\Widget\Wrapper\TDBCombo;
+use Adianti\Validator\TRequiredValidator;
+use Adianti\Wrapper\BootstrapFormBuilder;
+use Adianti\Widget\Wrapper\TDBUniqueSearch;
+use Adianti\Validator\TRequiredListValidator;
 
 /**
  * CustomerFormView
@@ -42,7 +53,8 @@ class EstagioForm extends TPage
 
      
         
-        $code        = new TEntry('id');
+        $code        = new THidden('id');
+        $validador        = new THidden('validador');
         $editado = new THidden('editado');
         //aqui o form só lista o aluno da sessão
         $filter_a = new TCriteria;
@@ -127,7 +139,9 @@ class EstagioForm extends TPage
        
         
         $this->form->appendPage('Dados básicos');
-        $this->form->addFields( [ new TLabel('Código do Estágio') ],      [ $code ], [ new TLabel('Ano do Estágio') ],      [ $ano ], [ new TLabel('Mês do Estágio') ],      [ $mes ] );
+        $this->form->addFields([ $code ]);
+        $this->form->addFields([ $validador ]);
+        $this->form->addFields( [ new TLabel('Ano do Estágio') ],      [ $ano ], [ new TLabel('Mês do Estágio') ],      [ $mes ] );
         $this->form->addFields( [ new TLabel('Aluno') ],      [ $aluno_id ] );
         $this->form->addFields( [ new TLabel('Empresa') ],      [ $concedente_id ] );
         $this->form->addFields( [ new TLabel('Orientador') ],      [ $professor_id ] );
@@ -344,6 +358,7 @@ class EstagioForm extends TPage
             $dados->editado = 'S';
             $dados->valor_bolsa = self::tofloat($dados->valor_bolsa);
             $dados->valor_transporte =self::tofloat( $dados->valor_transporte) ;
+            $dados->validador = base64_encode(TSession::getValue('login') . '-' . md5(uniqid()) . '-' . time());
 
             $estagio = new Estagio;
             $estagio->fromArray( (array) $dados );

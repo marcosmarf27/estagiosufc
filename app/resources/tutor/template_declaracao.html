@@ -1,0 +1,56 @@
+<!--[main]-->
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 99.8404%; height: 206px;" border="1">
+<tbody>
+<tr>
+<td style="width: 8.20476%;"><img src="http://dmontier.pro.br/balcao/wp-content/uploads/2018/09/21150163_1820265128264605_1170013528225421622_n.png" alt="" width="150" height="150" /></td>
+<td style="width: 75.094%; text-align: left;"><strong><span style="font-size: 18pt;"> &nbsp; &nbsp; &nbsp;CENTRAL DE EST&Aacute;GIOS - CAMPUS RUSSAS - UFC</span></strong></td>
+</tr>
+
+<tr style="height: 112px;">
+<td style="width: 83.2987%; height: 112px;" colspan="2">
+<table style="width: 98.8976%; height: 186px;" border="1">
+<tbody>
+<tr style="height: 21px;">
+<td style="width: 19.2741%; background-color: #c2e0f4; height: 21px;"><strong>Nome&nbsp;</strong></td>
+<td style="width: 78.4519%; height: 21px;">{{nome}}</td>
+</tr>
+<tr style="height: 21px;">
+<td style="width: 19.2741%; background-color: #c2e0f4; height: 21px;"><strong>Tipo est&aacute;gio</strong></td>
+<td style="width: 78.4519%; height: 21px;">{{tipo}}</td>
+</tr>
+<tr style="height: 21px;">
+<td style="width: 19.2741%; background-color: #c2e0f4; height: 21px;"><strong>Concedenete</strong></td>
+<td style="width: 78.4519%; height: 21px;">{{concedente}}</td>
+</tr>
+<tr style="height: 21px;">
+<td style="background-color: #c2e0f4; text-align: center; height: 21px;" colspan="2"><strong>Declara&ccedil;&atilde;o</strong></td>
+</tr>
+<tr style="height: 21px;">
+<td style="text-align: center; height: 21px;" colspan="2">
+<p style="text-align: left;">&nbsp; &nbsp; &nbsp; Prezado,</p>
+<p style="text-align: left;">&nbsp; &nbsp; &nbsp; Declaramos que o aluno <strong>{{nome}}</strong> com matr&iacute;cula <strong>{{matricula}}</strong> tem registrado, junto a Central de Est&aacute;gios - Campus Russas - UFC, est&aacute;gio com inicio em <strong>date_format({{data_ini}}, 'd/m/Y')</strong>&nbsp; e conclus&atilde;o em <strong>date_format({{data_fim}}, 'd/m/Y')</strong> . Destacamos que a documenta&ccedil;&atilde;o do aluno<span style="background-color: #c2e0f4;"><em> foi avaliada e aprovada</em></span> aguardando nesse momento a formaliza&ccedil;&atilde;o por meio da assinatura da Central de Est&aacute;gios.</p>
+
+
+<p style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Atenciosamente,</p>
+
+</td>
+</tr>
+<tr style="height: 81px;">
+<td style="width: 19.2741%; background-color: #c2e0f4; text-align: center; height: 81px;" colspan="2">
+<p style="text-align: left;">Para validar essas informa&ccedil;&otilde;es acesse <a href="http://www.campusrussas.ufc.br/extensao.html">http://www.campusrussas.ufc.br/extensao.html</a>&nbsp; e no menu de servi&ccedil;os VALIDE E VERIFIQUE O EST&Aacute;GIO USANDO O C&Oacute;DIGO: <strong>{{validador}}</strong></p>
+<p style="text-align: left;">&nbsp;</p>
+</td>
+</tr>
+<tr style="text-align: center;">
+    <td style="text-align: center;">
+        <a generator="adianti" href="index.php?class=DeclaracaoPDF&method=gerarPDF&register_state=false&estagio_id={{estagio_id}}">Clique aqui para imprimir</a>
+    </td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[/main]-->
