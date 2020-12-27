@@ -1,4 +1,8 @@
 <?php
+
+use Adianti\Registry\TSession;
+use Adianti\Core\AdiantiTemplateParser;
+use Adianti\Core\AdiantiCoreApplication;
 require_once 'init.php';
 $theme  = $ini['general']['theme'];
 $class  = isset($_REQUEST['class']) ? $_REQUEST['class'] : '';
