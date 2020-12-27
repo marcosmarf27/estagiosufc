@@ -151,7 +151,7 @@ class EstagioForm extends TPage
         $this->form->addFields( [ new TLabel('Auxílio Transporte (por mês)') ],      [ $valor_transporte ],    [ $editado ] );
         $this->form->addFields( [ new TLabel('Tipo de Contraprestação') ],      [ $pagamento_id ], [ new TLabel('Valor da Bolsa R$') ],      [ $valor_bolsa ], [ new TLabel('Carga Horária (Semanal)') ],      [ $carga_horaria ] );
        
-        
+        $concedente_id->setMask('(<b>{nome})</b> | CNPJ: {cnpj} -  convênio válido até  {validade_fim}');
      
       
         $this->form->appendPage('Plano de Atividades');
