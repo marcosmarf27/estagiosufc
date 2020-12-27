@@ -143,7 +143,7 @@ class EstagioForm extends TPage
         $this->form->addFields([ $validador ]);
         $this->form->addFields( [ new TLabel('Ano do Estágio') ],      [ $ano ], [ new TLabel('Mês do Estágio') ],      [ $mes ] );
         $this->form->addFields( [ new TLabel('Aluno') ],      [ $aluno_id ] );
-        $this->form->addFields( [ new TLabel('Empresa') ],      [ $concedente_id ] );
+        $this->form->addFields( [ new TLabel('Concedente') ],      [ $concedente_id ] );
         $this->form->addFields( [ new TLabel('Orientador') ],      [ $professor_id ] );
         $this->form->addFields( [ new TLabel('Inicio do Estágio') ],      [ $data_ini ], [ new TLabel('Fim do Estágio') ],      [ $data_fim ] );
         $this->form->addFields( [ new TLabel('Tipo de Estágio') ],      [ $tipo_estagio_id ] );
@@ -151,7 +151,7 @@ class EstagioForm extends TPage
         $this->form->addFields( [ new TLabel('Auxílio Transporte (por mês)') ],      [ $valor_transporte ],    [ $editado ] );
         $this->form->addFields( [ new TLabel('Tipo de Contraprestação') ],      [ $pagamento_id ], [ new TLabel('Valor da Bolsa R$') ],      [ $valor_bolsa ], [ new TLabel('Carga Horária (Semanal)') ],      [ $carga_horaria ] );
        
-        $concedente_id->setMask('(<b>{nome})</b> | CNPJ: {cnpj} -  convênio válido até  {validade_fim}');
+        $concedente_id->setMask('(<b>{nome})</b> | CNPJ: {cnpj} -  convênio válido até {validade_fim}');
      
       
         $this->form->appendPage('Plano de Atividades');
