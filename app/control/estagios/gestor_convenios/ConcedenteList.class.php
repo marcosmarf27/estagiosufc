@@ -88,7 +88,7 @@ class ConcedenteList extends TPage
         $this->datagrid->addColumn($criacao);
         $this->datagrid->addColumn($ultima);
 
-      $col_situacao->setTransformer(array($this, 'Ajustar'));
+         $col_situacao->setTransformer(array($this, 'Ajustar'));
      
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'id']);
@@ -98,11 +98,13 @@ class ConcedenteList extends TPage
         $action2 = new TDataGridAction([$this, 'onDelete'],   ['key' => '{id}'] );
         $action3 = new TDataGridAction(['ListEstagioEmpresa', 'onReload'],   ['key' => '{id}'] );
         $action4 = new TDataGridAction(['EmailList', 'listarEmails'],   ['email' => '{id}'] );
+        $action5 = new TDataGridAction([$this, 'VerDoc'],   ['url' => '{arquivo}'] );
         
         $this->datagrid->addAction($action1, 'Editar',   'far:edit blue');
         $this->datagrid->addAction($action2, 'Deletar', 'far:trash-alt red');
         $this->datagrid->addAction($action3, 'Ver Estágios', 'fas:eye fa-fw');
         $this->datagrid->addAction($action4, 'Ver E-mails', 'fas:envelope fa-fw');
+        $this->datagrid->addAction($action5, 'Ver documento', 'fas:file fa-fw');
         
         // create the datagrid model
         $this->datagrid->createModel();
@@ -180,5 +182,20 @@ class ConcedenteList extends TPage
          
         }
     }
+
+    public function verDoc($param){
+
+       if($param['url']){
+
+        $window = TWindow::create('Visualizando documento', 0.8, 0.8);
+        $object = new TElement('object');
+        $object->data  = $param['url'];
+        $object->type  = 'application/pdf';
+        $object->style = "width: 100%; height:calc(100% - 10px)";
+        $window->add($object);
+        $window->show();
+    }
+       }
+    
     
 }
