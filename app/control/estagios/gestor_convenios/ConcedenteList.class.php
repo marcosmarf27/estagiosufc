@@ -137,43 +137,43 @@ class ConcedenteList extends TPage
 
     public function ajustar($value, $object, $row){
         switch ($value) {
-            case 1:
-                $div = new TElement('span');
-                $div->class="label label-warning";
-                 $div->style="text-shadow:none; font-size:12px";
-                $div->add('Não conveniada');
-                return $div;
-                break;
-            case 2:
-                $div = new TElement('span');
-                $div->class="label label-success";
-                 $div->style="text-shadow:none; font-size:12px";
-                $div->add('Empresa Conveniada');
-                return $div;
-                break;
+                case 1:
+                    $div = new TElement('span');
+                    $div->class="label label-warning";
+                    $div->style="text-shadow:none; font-size:12px";
+                    $div->add('Não conveniada');
+                    return $div;
+                    break;
+                case 2:
+                    $div = new TElement('span');
+                    $div->class="label label-success";
+                    $div->style="text-shadow:none; font-size:12px";
+                    $div->add('Empresa Conveniada');
+                    return $div;
+                    break;
     
                 case 3:
                     $div = new TElement('span');
                     $div->class="label label-primary";
-                     $div->style="text-shadow:none; font-size:12px";
+                    $div->style="text-shadow:none; font-size:12px";
                     $div->add('Processando');
                     return $div;
                     break;
     
-                    case 4:
-                        $div = new TElement('span');
-                        $div->class="label label-danger";
-                         $div->style="text-shadow:none; font-size:12px";
-                        $div->add('Convenio com problemas');
-                        return $div;
-                        break;
-                    case 5:
-                        $div = new TElement('span');
-                        $div->class="label label-info";
-                            $div->style="text-shadow:none; font-size:12px";
-                        $div->add('Na procuradoria');
-                        return $div;
-                        break;
+                case 4:
+                    $div = new TElement('span');
+                    $div->class="label label-danger";
+                    $div->style="text-shadow:none; font-size:12px";
+                    $div->add('Convenio com problemas');
+                    return $div;
+                    break;
+                case 5:
+                    $div = new TElement('span');
+                    $div->class="label label-info";
+                    $div->style="text-shadow:none; font-size:12px";
+                    $div->add('Na procuradoria');
+                    return $div;
+                    break;
     
                       
              
