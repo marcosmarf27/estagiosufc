@@ -13,6 +13,7 @@
         "firebase/php-jwt": "^5.0",
     "pablodalloglio/ole": "dev-master",
     "pablodalloglio/spreadsheet_excel_writer": "dev-master",
-    "linfo/linfo": "^4.0"
+    "linfo/linfo": "^4.0",
+    "twilio/sdk": "^6.27"
     }
 }

@@ -69,8 +69,10 @@ class EstagioList extends TPage
         $this->setDefaultOrder('id', 'desc');    // defines the default order
         $this->addFilterField('id', '=', 'id'); 
         $this->addFilterField('(SELECT matricula FROM ufc_aluno WHERE id = ufc_estagio.aluno_id)', '=', 'matricula');
+        $this->addFilterField('(SELECT curso_id FROM ufc_aluno WHERE id = ufc_estagio.aluno_id)', '=', 'curso_id');
         $this->addFilterField('situacao', '=', 'situacao');// filterField, operator, formField
-        $this->addFilterField('aluno_id', '=', 'aluno_id'); // filterField, operator, formField
+        $this->addFilterField('aluno_id', '=', 'aluno_id');
+        $this->addFilterField('professor_id', '=', 'professor_id'); // filterField, operator, formField
         
         $this->addFilterField('data_ini', '>=', 'date_from', function($value) {
             return TDate::convertToMask($value, 'dd/mm/yyyy', 'yyyy-mm-dd');
@@ -91,16 +93,24 @@ class EstagioList extends TPage
         $situacao->addItems([ '1' => 'Em Avaliação', '2' => 'Estágio Aprovado','3' => 'Rescindidos', '4'=> 'Estágio com Problemas', '5'=> 'concluido']);
         $date_from = new TDate('date_from');
         $date_to   = new TDate('date_to');
+
+        $curso    = new TDBCombo('curso_id', 'estagio', 'Curso', 'id', 'nome');
         
         $aluno_id = new TDBUniqueSearch('aluno_id', 'estagio', 'Aluno', 'id', 'nome');
         $aluno_id->setMinLength(1);
-        $aluno_id->setMask('{nome} ({id})');
+        $aluno_id->setMask('{nome} ({siape})');
+
+        $professor_id = new TDBUniqueSearch('professor_id', 'estagio', 'Professor', 'id', 'nome');
+        $professor_id->setMinLength(1);
+        $professor_id->setMask('{nome} ({id})');
         
         // add the fields
-        $this->form->addFields( [new TLabel('Id')],          [$id], [new TLabel('Status')],          [$situacao], [new TLabel('Matricula')],          [$matricula]); 
+        $this->form->addFields( [new TLabel('nº estágio')],          [$id], [new TLabel('Status')],          [$situacao]); 
         $this->form->addFields( [new TLabel('Data Estágio (De)')], [$date_from],
                                 [new TLabel('Data Término (à)')],   [$date_to] );
-        $this->form->addFields( [new TLabel('Aluno')],    [$aluno_id] );
+        $this->form->addFields( [new TLabel('Matricula')], [$matricula],
+                                [new TLabel('Curso')],   [$curso] );
+        $this->form->addFields( [new TLabel('Aluno')],    [$aluno_id], [new TLabel('Orientador')],    [$professor_id] );
         
         $id->setSize('50%');
         $date_from->setSize('100%');
@@ -121,17 +131,22 @@ class EstagioList extends TPage
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
         $this->datagrid->width = '100%';
         $this->datagrid->height = '500px';
+        $this->datagrid->datatable = 'true';
+
+
      
         
         // creates the datagrid columns
-        $column_id          = new TDataGridColumn('id', 'ESTÁGIO', 'center', '5%');
+        $column_id          = new TDataGridColumn('id', 'ESTÁGIO', 'center');
         $column_situacao    = new TDataGridColumn('situacao', 'STATUS', 'center', '15%');
         $column_aluno       = new TDataGridColumn('aluno->nome', 'ALUNO', 'left', '20%');
         $column_tipo        = new TDataGridColumn('tipo_estagio->nome', 'TIPO', 'left', '10%');
         $column_concedente  = new TDataGridColumn('concedente->nome', 'CONCEDENTE', 'left', '15%');
+        $column_curso  = new TDataGridColumn('aluno->curso->nome', 'CURSO', 'left', '15%');
         $column_data_ini    = new TDataGridColumn('data_ini', 'INICIO', 'center', '10%');
         $column_data_fim    = new TDataGridColumn('data_fim', 'TÉRMINO', 'center', '10%');
         $column_data_envio    = new TDataGridColumn('criacao', 'ENVIO', 'center', '15%');
+        $column_orientador   = new TDataGridColumn('professor->nome', 'ORIENTADOR', 'center', '15%');
 
        
        
@@ -143,7 +158,9 @@ class EstagioList extends TPage
         $this->datagrid->addColumn($column_situacao);
         $this->datagrid->addColumn($column_aluno);
         $this->datagrid->addColumn($column_tipo);
+        $this->datagrid->addColumn($column_orientador);
         $this->datagrid->addColumn($column_concedente);
+        $this->datagrid->addColumn($column_curso);
         $this->datagrid->addColumn($column_data_ini);
         $this->datagrid->addColumn($column_data_fim);
         $this->datagrid->addColumn($column_data_envio);
@@ -248,6 +265,8 @@ class EstagioList extends TPage
         $container->add($this->form);
         $container->add($panel = TPanelGroup::pack('', $this->datagrid, $this->pageNavigation));
         $panel->getBody()->style = 'overflow-x:auto';
+        $panel->addHeaderActionLink( 'PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
+       // $panel->addHeaderActionLink( 'CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
         parent::add($container);
     }
 
@@ -431,5 +450,76 @@ class EstagioList extends TPage
    {
 
    }
+
+   public function exportAsPDF($param)
+    {
+        try
+        {
+            // string with HTML contents
+            $html = clone $this->datagrid;
+            $contents = file_get_contents('app/resources/styles-print.html') . $html->getContents();
+            
+            // converts the HTML template into PDF
+            $dompdf = new \Dompdf\Dompdf();
+            $dompdf->loadHtml($contents);
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            
+            $file = 'app/output/datagrid-export.pdf';
+            
+            // write and open file
+            file_put_contents($file, $dompdf->output());
+            
+            $window = TWindow::create('Export', 0.8, 0.8);
+            $object = new TElement('object');
+            $object->data  = $file;
+            $object->type  = 'application/pdf';
+            $object->style = "width: 100%; height:calc(100% - 10px)";
+            $window->add($object);
+            $window->show();
+        }
+        catch (Exception $e)
+        {
+            new TMessage('error', $e->getMessage());
+        }
+    }
+    
+    /**
+     * Export datagrid as CSV
+     */
+    public function exportAsCSV($param)
+    {
+        try
+        {
+            // get datagrid raw data
+            $data = $this->datagrid->getOutputData();
+            
+            if ($data)
+            {
+                $file    = 'app/output/datagrid-export.csv';
+                $handler = fopen($file, 'w');
+                foreach ($data as $row)
+                {
+                    fputcsv($handler, $row);
+                }
+                
+                fclose($handler);
+                parent::openFile($file);
+            }
+        }
+        catch (Exception $e)
+        {
+            new TMessage('error', $e->getMessage());
+        }
+    }
+    
+    /**
+     * shows the page
+     */
+    function show()
+    {
+        $this->onReload();
+        parent::show();
+    }
     
 }
